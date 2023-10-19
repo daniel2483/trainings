@@ -1,0 +1,130 @@
+- Monitoring commands
+
+/var/log
+
+iostat
+
+iostat -l
+
+- System maintenance
+
+shutdown
+
+init 0-6
+
+reboot
+
+halt --> shutdown -H
+
+
+- Changing system hostname
+
+hostnamectl set-hostname newhostname
+
+Example:
+hostnamectl set-hostname orchestrator4-0-0.fyre.ibm.com
+
+or editing /etc/hostname
+
+- Finding system info
+
+cat /etc/redhat-release
+uname -a
+dmidecode
+
+
+- System architecture
+
+32 bit or 64 bit CPU chipset
+
+number of calculations per second
+
+Command in linux
+arch
+
+- Terminal control keys
+ctrl + key
+ctrl-u erase everything typed in the command line
+ctrl-c stop/kill a command
+ctrl-z suspend a command
+ctrl-d exit from a interactive program
+ctrl-e
+ctrl-a
+
+- Terminal commands
+clear 
+exit
+script  --> For troubleshooting
+
+example:
+script logfile-activitiy.log
+ls -lrta
+
+
+- Recover Root password (single user mode)
+reboot
+edit grub (e)
+
+ro --> rw init=/sysroot/bin/sh
+ctrl-x
+chroot
+passwd to change the password
+touch /.autorelabel
+exit
+reboot
+
+
+change password
+reboot
+
+
+- SOS Report
+sos-version
+
+command:
+sosreport
+
+
+
+- Environment Variables
+dynamic-named value
+
+printenv
+env
+echo $SHELL
+
+export HISTSIZE=3000
+
+Locally
+/home/user/bashrc
+
+Globally
+/etc/profile
+/etc/bashrc
+
+
+- Special Permissions with setuid, setgid and sticky bit
+
+lsattr
+
+setuid -> bit tell Linux to run a program with the effective user id of the owner instead of the executor
+
+setgid -> bit tell Linux to run a program with the effective group id instead of the executor
+
+Only for files with executable permissions
+
+sticky bit: only the owner or root can delete those files
+
+GID And UID
+chmod u+s file.sh
+chmod g+s file.sh
+chmod u-s file.sh
+chmod g-s file.sh
+
+To find executables in Linux with setuid and setgid permissions
+find / -perm /6000 -type f
+
+chmod +t directory_or_filename
+chmod -t directory_or_filename
+
+

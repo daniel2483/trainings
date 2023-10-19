@@ -1,0 +1,98 @@
+Optimize performance using tuned daemon
+Prioritize or de-prioritize processes with nice and renice
+
+tuned --> daemon
+It is systemd service that is used to tune Linux system performance
+It is installed in CentOS/RedHat version 7 and 8 by default
+
+tuned package name is tuned, with pre-defined profiles and settings
+
+automatically adjust system to get the best performance.
+Example: tuned will adjust networking if you are downloading a large file or it will adjust IO settings if detects high storage read/write
+
+
+rpm -qa | grep tuned
+
+systemctl status|enable|start|stop tuned
+
+Command to change setting for tuned daemon
+tuned-adm
+
+To check active profile
+tuned-adm active
+
+To list all available profiles
+tuned-adm list
+
+# tuned-adm active
+Current active profile: virtual-guest
+# tuned-adm list
+Available profiles:
+- balanced                    - General non-specialized tuned profile
+- desktop                     - Optimize for the desktop use-case
+- hpc-compute                 - Optimize for HPC compute workloads
+- latency-performance         - Optimize for deterministic performance at the cost of increased power consumption
+- network-latency             - Optimize for deterministic performance at the cost of increased power consumption, focused on low latency network performance
+- network-throughput          - Optimize for streaming network throughput, generally only necessary on older CPUs or 40G+ networks
+- powersave                   - Optimize for low power consumption
+- throughput-performance      - Broadly applicable tuning that provides excellent performance across a variety of common server workloads
+- virtual-guest               - Optimize for running inside a virtual guest
+- virtual-host                - Optimize for running KVM guests
+Current active profile: virtual-guest
+#
+
+
+To change to desire profile
+tuned-adm profile <profile-name>
+
+Check tuned recommendation:
+tuned-adm recommend
+
+
+Turn off tuned daemon:
+tuned-adm off
+
+Change profile through web console:
+https://x.x.x.x:9090
+Overview > Configuration > Performance profile
+
+
+############################################################
+nice and renice
+
+nice from -20 to 19 (lowest priority)
+
+processes inherit nice prioirity
+
+top
+
+PR > System priority level RT -99 to 39
+NI > -20 to 19, nice value is a user-space and PR is a the process's actual priority that use by Linux kernel
+
+Linux priorities are 0 to 139, 0 to 99 for real time and 100 to 139 for users
+
+
+ps axo pid,comm,nice,cls --sort=-nice
+
+To set the process priority
+nice -n # process-name
+Ex:
+nice -n -15 top
+
+
+To change the process priority
+renice -n # process-name
+Ex:
+renice -n 12 PID
+
+
+
+
+
+
+
+
+
+
+
+

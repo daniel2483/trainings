@@ -1,0 +1,153 @@
+Firewall
+
+Firewall rules
+
+2 Types of firewalls in IT
+	- Software which runs in OS
+	- hardware which is a dedicated appliance with FW software
+
+Server A to Server B
+
+######################################################################
+
+iptables mostly used
+firewalld is newer
+
+
+It can run one or the other
+
+Before working with iptables
+systemctl stop firewalld	- To stop service
+systemctl disable firewalld	- To prevent from starting at boot time
+systemctl mask firewalld	- To prevent if from running by other programs or to not start it by accident
+
+Check if is installed
+rpm -qa | grep iptables-services
+yum install iptables-services
+
+To check rules:
+iptables -L
+
+To flush iptables:
+iptables -F
+
+
+Function of iptables is packet filtering
+tables, chains and targets
+
+tables= is something that allows you to process packets in specific ways. There are 4 different types: filter, mangle, nat and raw
+
+
+chains= The chains are attached to tables. These chains allow to inspect traffic. 3 main chains
+# iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+
+	Rule= if traffic is coming from x.x.x.x then go to target
+
+
+targets= target decides the fate of a packet, allowing or rejecting. 3 different type:
+	ACCEPT
+	DROP
+	REJECT
+
+prot: tcp,upd,icmp or all
+opt: IP options
+
+
+######################################################################
+
+
+Firewall
+	firewall-cmd
+
+	predefined service: NFS, NTP, HTTPD etc
+	
+	Also has
+	Table
+	Chains
+	Rules
+	Targets
+		DROP
+		REJECT
+		ACCEPT
+
+	
+systemctl stop iptables
+systemctl disable iptables
+systemctl mask iptables
+
+
+(systemctl unmask iptables) to unmask a service
+
+
+systemctl start/enable firewalld
+
+firewall-cmd --list-all
+firewall-cmd --get-services
+firewall-cmd --reload
+
+
+Examples:
+Multiple zones:
+firewall-cmd --get-zones
+
+Active zones:
+firewall-cmd --get-active-zones
+
+Firewall rules:
+firewall-cmd --zone=public --list-all
+
+3rd pary service:
+/usr/lib/firewalld/services/allservices.xml
+copy any .xml file and change the service and port number
+
+add a service (http):
+firewall-cmd --add-service=http
+
+
+To remove a service:
+firewall-cmd --remove-service=http
+
+To reload the firewall config
+firewall-cmd --reload
+
+
+To add or remove a service permanently
+firewall-cmd --add-service=http --permanent
+firewall-cmd --remove-service=http --permanent
+
+To add a service that is not pre-defined by firewalld
+/usr/lib/firewalld/services/allservices.xml
+do a copy and change service and port
+systemctl restart firewalld
+firewall-cmd --get-services
+firewall-cmd --add-service=<name>
+<name> should exists
+
+To add/remove a port
+firewall-cmd --add-port=1110/tcp
+firewall-cmd --remove-port=1110/tcp
+
+To add a port permanently
+firewall-cmd --add-port=1110/tcp --permanent
+
+To reject incoming traffic from an IP Address
+firewall-cmd --add-rich-rule='rule family="ipv4" source address="x.x.x.x" reject'
+
+To block ICMP traffic incoming traffic
+firewall-cmd --add-icmp-block-inversion
+firewall-cmd --remove-icmp-block-inversion
+
+To block outgoing traffic to specific web/ip address
+host -t a www.facebook.com
+firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d 31.13.93.35 -j DROP
+
+the 0 is disable
+

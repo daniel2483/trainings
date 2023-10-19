@@ -1,0 +1,36 @@
+DHCP Server
+
+
+ISP assign the gateway of the IP addresses
+
+
+Corporate: Dedicated routers run DHCP service to assign IPs
+
+DCP is more used on home network
+
+- Pick a server 
+- Create snapshot
+- Assign a static IP to the DHCP server
+	vi /etc/sysconfig/network/enp0s3
+	Or simply run nmtui command to use GUI based network protocol
+- Install dhcp server package
+	yum install dhcp (version 7)
+	dnf install dhcp-server (version 8)
+- Edit the config file with desired parameters
+	vi /etc/dhcp/dhcp.conf
+	cp /usr/share/doc/dhcp-x-x-x/dhcp.conf.example /etc/dhcp/dhcpd.conf
+
+- start dhcp service
+	systemctl start dhcpd
+	systemctl enable dhcpd
+
+- Disable the firewall
+	systemctl stop firewalld
+	or
+	firewall-cmd --add-service=dhcp -permanent
+	firewall-cmd -reload
+
+- Switch DHCP service from your router/modem to your new DHCP server
+	- Login to your ISP provided router
+	- Disable dhcp and enable forwarding to the new dhcp server
+	

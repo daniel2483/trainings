@@ -1,0 +1,12 @@
+Image file:
+double click if there is a GUI
+
+Install a program and commands to open
+
+As root
+yum install ImageMagick -y
+display image-file
+
+
+RHEL/CentOS version 8:
+# dnf install GraphicsMagic

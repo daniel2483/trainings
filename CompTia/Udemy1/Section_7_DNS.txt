@@ -1,0 +1,48 @@
+DNS
+
+Purpose
+hostname to IP (A record)
+IP to hostname (PTR Record)
+hostname to hostname (CNAME Record)
+
+Files
+/etc/named.conf
+/etc/named   (Zone)
+
+Service
+
+systemctl restart named
+
+Installation:
+- Create a snapshot of your VM
+- Setup
+	Master DNS
+	Seconday or Slave DNS
+	Client
+
+Domain name = lab.local
+IP Address = local IP address on enp0s3
+
+Install DNS package
+yum install bin bind-utils -y
+
+Configure DNS
+Modify /etc/named.conf
+Create two zones files (forward.lab and reverse.lab)
+Modify DNS file permissions and start the service
+
+
+DNS Lookup
+
+nslookup  ---> yum install bind-utils -y
+
+dig
+# dig -v
+DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el7_9.10
+
+
+
+
+
+
+

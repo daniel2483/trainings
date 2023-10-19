@@ -1,0 +1,8 @@
+Traceroute
+
+tracing from source to destination
+Identifies slow points
+
+
+# traceroute <url>
+

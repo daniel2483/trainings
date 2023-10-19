@@ -1,0 +1,8 @@
+Rsyslog (Central Logger)
+
+package name rsyslog
+
+/etc/rsyslog.conf
+
+
+

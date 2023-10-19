@@ -1,0 +1,111 @@
+Network Performance
+
+ufw status
+ufw enable
+ufw disable
+ufw allow 330001
+ufw allow in on eth0 from 9.20.0.0/16
+ufw deny out on eth0 from 203.0.113.100
+ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+SSH                        ALLOW       Anywhere
+224.0.0.251 mDNS           ALLOW       Anywhere
+33001                      ALLOW       Anywhere
+22                         ALLOW       Anywhere
+Anywhere on eth0           ALLOW       9.30.0.0/16
+Anywhere on eth0           ALLOW       9.20.0.0/16
+SSH (v6)                   ALLOW       Anywhere (v6)
+ff02::fb mDNS              ALLOW       Anywhere (v6)
+33001 (v6)                 ALLOW       Anywhere (v6)
+22 (v6)                    ALLOW       Anywhere (v6)
+
+ufw status numbered
+# ufw delete 10
+Deleting:
+ deny out on eth0 from 203.0.113.100
+Proceed with operation (y|n)? y
+Rule deleted
+
+
+iperf -c 9.30.230.48:33001 -b 90kb -d -P 5 -e -i 10
+
+Command used to check the bandwidth
+iftop -i eth0
+
+
+tracepath
+tracepath 9.30.0.1
+ 1?: [LOCALHOST]                                         pmtu 1500
+ 1:  9-30-0-0-gw.svl.ibm.com                               1.036ms reached
+ 1:  9-30-0-0-gw.svl.ibm.com                               0.731ms reached
+     Resume: pmtu 1500 hops 1 back 1
+
+# tracepath 8.8.8.8
+ 1?: [LOCALHOST]                                         pmtu 1500
+ 1:  9-30-0-0-fo2.svl.ibm.com                              0.811ms
+ 1:  9-30-0-0-fo2.svl.ibm.com                              0.746ms
+ 2:  no reply
+ 3:  no reply
+ 4:  9.89.107.98                                           3.238ms asymm  5
+ 5:  svl-bc-a-v1111.usca.ibm.com                           7.123ms asymm  4
+ 6:  9.55.128.7                                            7.442ms asymm  5
+ 7:  9.55.128.7                                            8.936ms pmtu 1434
+ 7:  9.64.16.126                                          54.354ms asymm  6
+ 8:  9.106.88.3                                           52.684ms
+ 9:  9.106.88.131                                         57.533ms
+10:  eth1-6-efw01a.da3.ustx.ibm.com                       58.862ms asymm  9
+11:  xe1-0-0-er01.da3.ustx.ibm.com                        59.215ms asymm 10
+12:  38.xe-0-0-1.gw9.dfw7.alter.net                       59.424ms asymm 11
+13:  no reply
+14:  72.14.197.114                                        63.831ms asymm 18
+
+
+
+For checking sockets
+ss
+
+ss -a (all)
+ss -s (summary)
+ss -l (listening)
+ss -e (established)
+
+
+# ss -s
+Total: 267 (kernel 800)
+TCP:   240 (estab 18, closed 208, orphaned 0, synrecv 0, timewait 207/0), ports 0
+
+Transport Total     IP        IPv6
+*         800       -         -
+RAW       0         0         0
+UDP       12        9         3
+TCP       32        29        3
+INET      44        38        6
+FRAG      0         0         0
+
+
+
+mtr - a network diagnostic tool
+# mtr -o "D A J" -c 20 -r 9.30.0.1
+Start: Tue Nov 15 11:00:36 2022
+HOST: smartens1.fyre.ibm.com      Drop    Avg  Jttr  Wrst StDev
+  1.|-- 9-30-0-0-gw.svl.ibm.com      0    0.7   0.1   0.9   0.0
+
+mtr -o "L D A J" -c 20 -r 127.0.0.1
+Start: Tue Nov 15 10:57:45 2022
+HOST: smartens1.fyre.ibm.com      Loss%  Drop    Avg  Jttr
+  1.|-- localhost                  0.0%     0    0.1   0.0
+
+
+
+netcat
+nc -l 8001 > /dev/null
+
+
+
+dd utility (convert and copy a file)
+dd if=/dev/zero bs=1M count=2 | nc 9.30.0.79 8001 -i 2
+
+

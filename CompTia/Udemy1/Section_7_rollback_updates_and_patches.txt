@@ -1,0 +1,23 @@
+
+# yum install -y ksh
+# rpm -qa | grep ksh
+ksh-20120801-144.el7_9.x86_64
+
+
+Rollback a package or patch
+# yum history
+Loaded plugins: fastestmirror
+ID     | Command line             | Date and time    | Action(s)      | Altered
+-------------------------------------------------------------------------------
+    70 | install -y ksh           | 2022-11-16 15:28 | Update         |    1
+#yum history undo 70
+
+
+
+Rollback an update
+ From RHEL 7.1 to 7.0 is not recommended only with snapshot
+
+yum update - Update will preserve all updates
+yum upgrade - Will delete obsolete packages
+yum history undo <id>
+

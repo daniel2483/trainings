@@ -1,0 +1,52 @@
+Implement Advanced Storage Features
+
+RH 9 introduces the next gen volume management solution called Stratis
+
+
+It uses thin provisioning by default
+
+It combines the process of creating logical volume management (LVM) and creation of filesystems into one management
+
+In LVM if a FS gets full you will have to extend it manually whereas stratis extends the filesystem automatically if it has available space in its pool
+
+We will learn:
+
+How to manage multiple storage layers using stratis local storage management
+
+To install stratis package
+yum/dnf install stratis-cli stratisd -y
+
+Enable and start the service
+systemctl enable|start stratisd
+
+Add 2x 5G new disks from virtualization software and verify at the OS level
+	Oracle virtualbox storage setting
+	lsblk
+
+Create a new stratis pool and verify
+	stratis pool create pool1 /dev/sdb
+	stratis pool list
+
+Extend the pool
+	stratis pool add-data pool1 /dev/sdc
+	stratis pool list
+
+Create a new filesystem using stratis
+	stratis filesystem create pool1 fs1
+	stratis filesystem list
+
+Create a directory for mount point and mount filesystem
+	mkdir /bigdata
+	mount /stratis/pool1/fs1 /bigdata
+	lsblk
+
+Create snapshot
+	stratis filesystem snapshot pool1 fs1 fs1-snap
+	stratis filesystem list
+
+Add the entry on /etc/fstab to mount at boot
+	UUID="uuid_of_system"/bigdata	xfs	default,x-systemd.requires=stratisd.service	0	0 
+
+
+
+

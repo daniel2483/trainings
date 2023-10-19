@@ -1,0 +1,76 @@
+#################################################################
+
+Resume Workshop
+
+How to build an impressive resume
+
+Do´s and Don´ts
+
+Adding keywords
+
+Structure
+
+#################################################################
+
+Grammatical mistakes
+
+Past and future and future
+
+#################################################################
+
+Objective or Summary
+
+#################################################################
+
+Support your Resume
+
+#################################################################
+
+Cover Letter
+
+
+Entry Level
+Exprecienced Level
+
+
+#################################################################
+
+Post resume and what to expect
+
+
+#################################################################
+
+Linux Administrator Job Duties
+
+IT Technician
+Help desk tehnician
+System Administrator
+System Engineer
+
+Duties
+
+
+#################################################################
+
+Exposure to Other Technologies
+
+Operating System
+	Windows, Virtualization Technology
+
+Hardware
+	Dell and HP
+
+Monitoring Tools
+	Nagios, Splunk, Zenoss
+
+Cloud
+	Amazon Cloud EC2 - Elastic Cloud
+
+OS Tools
+	Redhat Satellite, Kickstart, Active Directory, DNS, Puppet (Azure, or ansible), etc
+
+Database
+	SQL, Informix, etc
+
+
+

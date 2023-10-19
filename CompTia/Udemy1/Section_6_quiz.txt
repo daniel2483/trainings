@@ -1,0 +1,56 @@
+1. which keys are used in vi editor to delete a line?
+dd
+
+2. What key is used in vi to insert and start from new line?
+o
+
+3. Which command is used to create a new user?
+useradd username
+
+4. Which command is used to modify user attributes?
+usermod
+
+5. Which command is used to run commands used by root user only?
+sudo command-name
+
+6. Which file is used to add a user to sudo configuration file?
+/etc/sudoers
+
+7. Which command(s) is used to list logged in users?
+who and w
+
+8. How to find out information about a user?
+id username
+
+9. "date" command is used for?
+view and set date
+
+10. Which of the following command is correct if you want to view only the month of January 2008?
+cal 1 2008
+
+11. What is the difference between a process and a daemon?
+Process runs and ends after it is done with the task whereas daemon runs at all times and wait or listen to protocols
+
+12. How to start a system service such as ntpd in CentOS/RHEL 7?
+systemctl start ntpd
+
+13. What does a ps -ef command shows?
+List all running process
+
+14. Why use kill command when a process can be stopped with systemctl stop process-name?
+Because sometimes a process is hung and can be stopped with kill command
+Because sometimes a process child becomes as a zombie process and it requires kill command to clean all remaining processes
+Because sometime a process or service does not respond to regular commands such as systemctl or service
+
+15. List commands that are used for system resource monitoring?
+top,df,free,iostat
+
+16. What is the 3 field in df -h command
+Disk space usage in actual size
+
+17. What is the difference between shutdown and halt command?
+Halt brings the system down to its lowest state, but leaves it powered on. shutdown brings the system to its lowest state, and will turn off the power
+
+18. Why it is important for a system admin to monitor logs?
+Because log will have all the system messages and system admin can trace the log to find the root cause
+

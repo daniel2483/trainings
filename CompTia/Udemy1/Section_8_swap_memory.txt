@@ -1,0 +1,54 @@
+####################################################################
+
+Add/Extend swap space
+
+Swap space - amount of physical when RAM is full, should not be considered as a replacement for more RAM. Swap space is located on Hard drives. 
+
+Recommended size = twice the size of RAM
+
+if M < 2
+then S=M*2
+Else S=M+2
+
+Commands:
+dd
+mkswap
+swapon or swapoff
+
+free -m
+
+To extend add a new DIMM
+Slice the disk an use it for swap
+
+su -
+dd if=/dev/zero of=/newswap bs=1M count 1024
+cd /
+ls -lrta
+permissions:
+chmod go-r newswap
+or
+chmod 600 newswap
+
+mkswap /newswap
+
+free -m
+
+swapon /newswap
+
+free -m
+
+vi /etc/fstab
+/newswap	swap	swap	defaults	0	0
+
+
+
+To delete swap
+swapoff /newswap
+rm /newswap
+vi /etc/fstab
+remove the swap line
+
+
+
+
+####################################################################

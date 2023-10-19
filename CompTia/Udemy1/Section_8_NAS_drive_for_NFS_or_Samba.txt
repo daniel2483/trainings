@@ -1,0 +1,11 @@
+NFS Drive
+
+NFS/Samba or any NAS service can be through a dedicated NAS device
+
+NAS there is a OS and share with other FS
+
+- Physical layout of a NAS device
+- Steup, configure and manage NAS device
+- Create shared Filesystem (NFS and Samba)
+- Mount shared folder from the NAS device to Linux and Windows
+

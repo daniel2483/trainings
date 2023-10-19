@@ -1,0 +1,46 @@
+Samba Installation and Configuration:
+
+Is a linux tool or utility that allows sharing for Linux resources such as files and printers to with other operating systems
+
+Works exactly like NFS but the difference is NFS shares within Linux or Unix like system whereas Samba shares with other OS (Windows, MAC, etc)
+
+Samba (smb vs CIFS)
+
+Samba shares its filesystem through a protocol called SMB (Server Message Block) which was invented by IBM.
+
+Another protocol used to share Samba is through CIFS (Common Internet File System) invented by Microsoft and NMB (NetBios Named Server)
+
+CIFS became the extension of SMB and now Microsoft has introduced newer version of SMB v2 and v3 that are mostly used in the industry
+
+In simple term, most people, when they use either SMB or CIFS, are talking about the same exact thing.
+
+Installation:
+
+
+1- Take snapshot of your VM
+
+2- Install samba packages
+
+3- Enable samba to be allowed through firewall (Only if you have firewall running)
+
+4- Disable firewall
+
+5- Create Samba share directory and assign permissions
+
+6- Also change the SELinux security context for the Samaba shared directory
+
+7- Or disable SELinux
+
+8- Modify /etc/samba/smb.conf
+
+9- Verify the settings
+
+10- Once the packages are installed, enable and start Samba services (smb and nmb)
+
+11- Mount Samba share on Windows client
+
+12- Mount Samba share on Linux client
+
+13- Additional instructions on creating secure Samba share
+
+

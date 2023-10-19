@@ -1,0 +1,127 @@
+Run Level:
+
+Main Run level:
+0 > shutdown or halt the system
+1 Single user mode: init 1 or init s or init S
+6 Reboot the system: init 6 or reboot
+2 Multiuser mode without networking
+3 Multiuser mode with networking
+5 Multiuser mode with networking and GUI
+
+Run Level 4 is undefined or not used/ user defineable
+
+who -r > to check which run level we are
+
+##############################################################
+
+Boot Process:
+Mother board - initiate the CPU and start the BIOS (UEFI)
+Tiny software with ROM
+CMOS - complementary metal-oxide semiconductor
+
+1st sector on HDD
+MBR (Master Boot record)
+
+Then the OS is loaded
+
+
+All this process is called the bootstrap
+
+##############################################################
+
+Linux boot process
+
+
+BIOS
+
+MBR
+
+GRUB
+
+Kernel
+
+Init
+
+Runlevel
+
+
+# cat /etc/systemd/system/default.target
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Multi-User System
+Documentation=man:systemd.special(7)
+Requires=basic.target
+Conflicts=rescue.service rescue.target
+After=basic.target rescue.service rescue.target
+AllowIsolate=yes
+# systemctl get-default
+multi-user.target
+# who -r
+run-level 3  2022-10-31 10:02
+#
+
+
+
+# cat /etc/inittab
+# inittab is no longer used when using systemd.
+#
+# ADDING CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.
+#
+# Ctrl-Alt-Delete is handled by /usr/lib/systemd/system/ctrl-alt-del.target
+#
+# systemd uses 'targets' instead of runlevels. By default, there are two main targets:
+#
+# multi-user.target: analogous to runlevel 3
+# graphical.target: analogous to runlevel 5
+#
+# To view current default target, run:
+# systemctl get-default
+#
+# To set a default target, run:
+# systemctl set-default TARGET.target
+#
+#
+
+
+
+# cd /etc/rc.d/
+# ls -lh
+total 4.0K
+drwxr-xr-x. 2 root root  96 Sep 11 00:46 init.d
+drwxr-xr-x. 2 root root  74 Jan 14  2022 rc0.d
+drwxr-xr-x. 2 root root  74 Jan 14  2022 rc1.d
+drwxr-xr-x. 2 root root  74 Jan 14  2022 rc2.d
+drwxr-xr-x. 2 root root  74 Jan 14  2022 rc3.d
+drwxr-xr-x. 2 root root  74 Jan 14  2022 rc4.d
+drwxr-xr-x. 2 root root  74 Jan 14  2022 rc5.d
+drwxr-xr-x. 2 root root  74 Jan 14  2022 rc6.d
+-rw-r--r--  1 root root 473 Sep  1 07:57 rc.local
+# cd rc3.d/
+# ls -lh
+total 0
+lrwxrwxrwx. 1 root root 20 Apr  6  2020 K50netconsole -> ../init.d/netconsole
+lrwxrwxrwx. 1 root root 17 Apr  6  2020 S10network -> ../init.d/network
+lrwxrwxrwx  1 root root 28 Jan 14  2022 S65AsperaOrchestrator -> ../init.d/AsperaOrchestrator
+#
+
+##############################################################
+
+Linux boot process (newer versions)
+
+Redhat/CentOS 7
+
+systemd is the new service manager, that manages the boot sequence
+
+Compatible with SysV
+
+Understand the boot processs in order to troubleshoot effectively
+
+
+
+

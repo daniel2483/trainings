@@ -1,0 +1,27 @@
+Background:
+Ctrl-z
+
+jobs to list what has been stopped
+bg to put the process in the background
+
+fg to foreground 
+
+Run process even after exit
+nohup process &
+
+
+nohup process > /dev/null 2>&1 &
+
+To kill a process by name:
+pkill
+
+Process priority: nice
+nice -5 process
+
+scale goes from -20 to 19, the lower number more priority
+
+process monitoring: top
+
+process list
+ps
+

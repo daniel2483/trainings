@@ -1,0 +1,361 @@
+######################################################################################
+
+Connecting Linux VM through Putty
+
+NIC setting on oracle virtual box
+Advance NIC setting on oracle virtual box
+Network interface is down at OS level
+SSH daemon is not running
+
+######################################################################################
+
+Changing default permissions (umask)
+
+How to change the default file permission
+
+umask is a command to set default permission of any newly created file/directory
+
+Eg
+umask u+rw,g+r,o-rwx
+umask u+rw,g+r,g-w,o-rwx
+
+
+edit .bashrc
+vi .bashrc
+
+umask u+rw,g+r,g-w,o-rwx
+
+
+######################################################################################
+
+Create VM on VMWare Player
+
+
+######################################################################################
+
+Install Oracle VirtualBox on MAC
+
+######################################################################################
+
+Install Oracle Guest Addition (Tools)
+
+Installation instructions
+	Latest kernel
+	# yum update kernel*
+	Install following packages
+	# rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+	Install the following packages
+	# yum install gcc kernel-devel kernel-headers dkms make bzip2 perl
+	Mount VirtualBox Guest Additions
+	# Devices -> Insert Guest Addition CD images -> run
+
+######################################################################################
+
+Filesystem Color Definition
+	
+Blue > directory
+Green > Executable or recognized data file
+Sky blue > Symbolic link file
+Yellow with black background > Device
+Pink > Graphic image file
+Red > Archive file (tar)
+Red with black background > Broken Link
+
+######################################################################################
+
+Cannot Delete, Copy, Rename or Move  file
+
+File does not exist
+Absolute vs relative paths
+File type
+Permissions
+Parent Directory Permissions
+Hidden File
+Command syntax (source and then target)
+
+######################################################################################
+
+Troubleshooting Change Directory issues
+
+Cannot CD Into a Directory
+
+Directory does not exist
+Absolute vs Relative Paths
+Permissions
+File Type
+Parent Directory Permissions
+Hidden Directories
+
+######################################################################################
+
+Fixing Corrupted FileSystem
+
+Types
+ext3, ext4, xfs NTFS etc
+
+Filesystem layout and partitions
+/var, /etc, /root, /home, etc
+
+df, fdisk -l
+
+Troubleshooting Steps
+
+Check /var/log/messages or /var/log/syslog
+
+Run fsck on the block device /dev/sda not on the mount point
+
+Unmount filesystem and run fsck
+
+fsck.xfs /dev/sda1
+
+xfs_repair /dev/sda1
+
+######################################################################################
+
+Linux System Performance Issues
+
+Understanding the problem
+	Processing
+	Disk writing
+	Networking (file transfer, etc)
+	HW
+
+Troubleshooting steps
+Check if the right system is reported or you are on the right system
+Check disk space df -h, du
+Check processing (top, free, lsmem, /proc/meminfo, vmstat, pmap PID, dmidecode, lscpu pr /proc/cpuinfo)
+	dmidecode - Hardware information
+Check disk issues (iostat -y 5, lsof)
+	iostat -y 5		> Running 5 seconds
+Check networking (tcpdump -i enps03, lsof -i -P -n | grep -i listen, netstat -plnt or ss -plnt, iftop)
+	yum install epel-release iftop -y
+	yum install -y tcpdump
+	iftop - display bandwidth usage on an interface by host
+	tcpdump -i enps03
+
+Check system uptime - uptime
+Check logs
+	tail -100 /var/log/messages | egrep "failed|error|warning" 
+Check HW status by logging into system console
+Other Tools (htop, iotop, iptraf, psacct)
+	# yum install -y iotop
+	# yum install -y htop
+	# yum install -y iptraf		> Command: iptraf-ng
+	# yum install psacct
+    ac command prints the statistics of user logins/logouts (connect time) in hours.
+    lastcomm command prints the information of previously executed commands of the user.
+    accton commands is used to turn on/off process for accounting.
+    sa command summarizes information of previously executed commands.
+    last and lastb commands show a listing of last logged-in users.
+
+######################################################################################
+
+IP assigned but not reachable
+
+
+Troubleshooting Steps
+	Chcek if you are in the correct network interface (ifconfig)
+	Check if you got the right subnet mask or GW
+	Check Ping the GW
+	Check if the GW is assigned (netstat -rnv)
+	Check with the network team if the correct vLAN is assigned on the switch side
+	Run ethtool or mii-tool to check the NIC status
+	Run ifup <interface> command to bring the NIC port up
+	Restart network: 
+		systemctl restart network
+	Check on the status of NIC by running ifconfig or ip addr command
+	Check to see if the IP is assigned to some other device (IP Conflict)
+	Turn off firewall
+	
+######################################################################################
+
+Remove unnecessary or orphan packages
+
+Keep the system lean and mean
+Install only packages needed
+If there are unwanted packages, delete them
+The fewer packages the less chance of unpatched code
+
+Guidelines:
+Do not install packages that you do not need during the initial installation
+Pay close attention to the add-on packages
+
+Get list of packages
+# rpm -qa CentOS
+# apt-list -installed Ubuntu
+
+Remove packages
+# rpm -e package_name
+# apt-get remove package_name
+
+Orphaned packages:
+The objective is to remove all orphaned packages from CentOS Linux
+
+
+Utility
+yum-utils
+Check if the utility exists
+# yum install yum-utils
+
+Get the list of all orphaned packages
+# package-cleanup --leaves
+
+Remove
+# yum remove `package-cleanup --leaves`
+# apt-get autoremove
+
+######################################################################################
+
+SELinux
+
+Security Enhanced Linux
+Kernel security module that provides a mechanism for supporting access control security policies, including mandatory access controls
+It is a project of US NSA and SELinux Community
+
+SELinux options:
+
+	Enforcing = Enabled
+	Permissive = Disabled but logs activity
+	Disable =	Disabled and not activity logs
+
+To check SELinux status
+	# sestatus
+	# getenforce
+
+SELInux setting
+	# setenforce 0 = Permissive/Disable
+	# setenforce 1 = Enable
+
+Modify SELinux config for permanent setting
+	/etc/elinux/config
+	SELINUX=enforcing
+	SELINUX=disabled
+
+Before modifying selinux config file
+	Create a snapshot of your VM
+
+Before rebooting create a file
+	/.autorelabel
+
+Two main concepts of SELInux
+	Labeling - Labels every file or dir 
+		User:role
+		type:level
+	Type enforcement
+	
+To list the label of a file and directory
+	ls -lZ /usr/sbin/httpd
+	ls -dZ /etc/httpd
+
+As the webserver run its process is labeled in mem as httpd_t
+ps axZ | grep httpd
+netstat -tnlpZ | grep sshd
+
+Commands to manage SELinux setting:
+	semanage > to label
+	login
+	user	
+	port
+	interface
+	module
+	node
+	file context
+	boolean
+	permissive state
+	dontaudit
+
+Boolean:
+	ON/OFF Switch
+	There are predefined out of the box Booleans that come with SELinux
+	
+	Get list of all booleans
+		getsebool -a
+		semanage boolean -l
+	
+	To enable or turn on a booleans
+		setsebool -P boolean_name on
+		
+	Check error message related to selinux
+		journalctl
+	
+	To change the type in a label
+		chcon -t httpd_sys_content_t FILENAME
+		semanage -t httpd_sys_content_t FILENAME
+	
+	
+######################################################################################
+
+Types of security threads
+
+Distributed denial-of-service DDoS attack - Do a overload to slow or shutdown
+Hacking	- Unathorized access
+Malware	- Malicious Software
+Pharming	- Malicious and illegitiamte website by redirecting the legitimate URL, redirected to a fakewebsite
+Phishing	- Fake emails, text messages and websites created to look like they're from authentic companies. They're sent by criminals to steal personal and financial info from you
+Ransomware	- Restricts access to your computer or your files and displays a message that demands payment.
+Spam		- More common method of sending information out and collecting it from unsuspecting people
+Spoofing	- Technique is used with conjunction with phishing in an attempt to steal your info. 
+Spyware	- Software that collects personal info about you wihout you knowing. Often come in a 'free' download
+Trojan Horses	- Malicious program that is disguised as or embedded within, legitimate software
+Wi-Fi Eavesdropping	- Method to capture personal info. Virtual 'listening in' on info that's shared over an unsecure WiFi Network
+Viruses	- Malicious computer programs that are often sent as an email attachment or a download with inten of infecting your computer.
+Worms	- Goes to work on its own without attaching itself to files or programs
+
+
+######################################################################################
+
+Running Linux on Web Browser
+
+
+######################################################################################
+
+Improve typing skills
+
+######################################################################################
+
+What is Virtualization and its Benefits
+
+What is virtual
+	Not physically existing
+	
+Virtualization technology
+	virtual representation of something, such as virtual applications, servers, storage and networks
+
+VMWare
+Microsoft = Hyper-V
+Citrix
+Redhat
+Oracle
+Amazon (AWS)
+Google
+IBM
+Huawei
+Azure
+
+Virtualization Terms
+Hypervisor = Host / Virtual Server
+Virtual Machine = Guest OS, OVM
+Virtualization Manager = vCenter, OVM
+Virtual Desktop
+P2V = Physical to virtual
+V2V
+V2P
+Snapshot - Same state
+Clone or cloning
+
+
+######################################################################################
+
+Introduction to VMWare
+
+VMWare company
+Cloud computing and virtualization software and services
+
+ESXi
+vSphere
+vCenter to add ESXi in a cluster
+
+
+######################################################################################
+
+

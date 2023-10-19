@@ -1,0 +1,12 @@
+RAID
+
+Redundant Array of Independent Disks
+
+
+to create redundacy
+
+RAID 0 - one disk and add a new disk, this increase the size 
+
+RAID 1 - Eliminate the disadvantage . One disk and another disk and creates a mirroring. This is slow. 
+
+RAID 5 - One disk, cop everything on second disk, but needs to have 3 or more disks

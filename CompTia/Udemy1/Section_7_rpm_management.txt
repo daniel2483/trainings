@@ -1,0 +1,36 @@
+rpm -e name
+rpm -qa | grep ksh
+
+
+rpm -qc package will show the configuration files
+
+# rpm -qa | grep postfix
+postfix-2.10.1-9.el7.x86_64
+# rpm -qc postfix-2.10.1-9.el7.x86_64
+/etc/pam.d/smtp.postfix
+/etc/postfix/access
+/etc/postfix/canonical
+/etc/postfix/generic
+/etc/postfix/header_checks
+/etc/postfix/main.cf
+/etc/postfix/master.cf
+/etc/postfix/relocated
+/etc/postfix/transport
+/etc/postfix/virtual
+/etc/sasl2/smtpd.conf
+[root@proxyserver1-4-61 ~]#
+
+To know which pacakge is associated with a command
+# rpm -qf /bin/ssh
+openssh-clients-7.4p1-22.el7_9.x86_64
+
+# which pwd
+/usr/bin/pwd
+# rpm -qf /usr/bin/pwd
+coreutils-8.22-24.el7_9.2.x86_64
+
+
+
+
+
+

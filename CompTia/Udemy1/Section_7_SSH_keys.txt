@@ -1,0 +1,23 @@
+Access Remote Server without Password (SSH_keys)
+
+
+- Repetitive logins
+- Automation through scripts
+
+
+Keys are generated at user level
+
+root
+dani
+
+1. Generate key from Server
+# ssh-keygen
+
+2. Copy the key from Client
+# ssh-copy-id root@ip_address
+
+3. Then can login remotely as
+ssh -l root 9.30.86.45
+ssh root@9.30.86.45
+
+

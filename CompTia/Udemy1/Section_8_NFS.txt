@@ -1,0 +1,75 @@
+Network File System (NFS)
+
+Developed by Sun Microsystems, Inc
+
+Its a client/server system that allows users to access files across a network and treat it as a local file directory.
+
+NFS request
+
+#####################################
+Steps for NFS Server Configuration
+
+1- Install NFS packages
+# yum install nfs-utils libnfsidmap
+
+2- Enable and start NFS services
+# systemctl enable rpcbind
+# systemctl enable nfs-server
+# systemctl start rpcbind, nfs-server, rpc-statd, nfs-idmapd
+
+3- Create NFS directory and assign permissions
+# mkdir /mypretzels
+# chmod a+rwx /mypretzels
+
+4- Modify /etc/exports file
+# /mypretzels 192.168.12.7(rw,sync,no_root_squash) = for only 1 host
+
+rw- Read/write
+sync- all changes to the according filesystem are immediately flushed to disk; the respective write operations are being waited for
+no_root_squash- Root on client machine will have the same level of access to the files on the system as root on the server.
+
+To all computers
+# /mypretzels *(rw,sync,no_root_squash) = for everyone
+
+5- Export the NFS filesystem:
+# exportfs -rv
+-r republished
+-v verbose mode
+
+
+
+#####################################
+Steps for NFS Client Configuration
+
+1- Install the packages
+yum install nfs-utils rpcbind
+
+2- Enable and restart the services
+service rpcbind start
+service rpcbind enable
+service nfs-utils start
+service nfs-utils enable
+
+3- Make sure firewalld or iptables stopped (if running)
+# ps -fe | egrep "firewalld|iptable"
+
+4- Show mount from NFS server
+# showmount -e 192.168.1.5 (NFS server IP)
+
+5- Create a mount point
+# mkdir /mnt/app
+
+6- Mount the NFS filesystem
+# mount 192.168.1.5:/mypretzels /mnt/app
+
+7- Verify mounted filesystem
+# df -kh
+
+8- To unmount
+# umount /mnt/app
+
+
+
+
+
+

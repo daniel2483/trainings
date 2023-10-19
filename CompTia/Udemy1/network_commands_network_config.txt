@@ -1,0 +1,302 @@
+ARP - display the arp table
+
+ethtool shows stastics of network adapter
+# ethtool eth0
+Settings for eth0:
+        Link detected: yes
+
+# ethtool -S eth0  (should show the statistics
+
+
+ifconfig
+
+
+# ip -s link show eth1
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 00:20:09:1e:00:4f brd ff:ff:ff:ff:ff:ff
+    RX: bytes  packets  errors  dropped overrun mcast
+    61929888346 308545802 0       0       0       0
+    TX: bytes  packets  errors  dropped carrier collsns
+    36426301177 267282353 0       0       0       0
+[root@smartens1 ~]#
+
+
+
+netstat -i
+
+
+# netstat -i
+Kernel Interface table
+Iface             MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+eth0             1500 47574677      0      0 0           748      0      0      0 BMRU
+eth1             1500 308558936      0      0 0      267293936      0      0      0 BMRU
+lo              65536 755366366      0      0 0      755366366      0      0      0 LRU
+virbr0           1500        0      0      0 0             0      0      0      0 BMU
+
+
+dig command Domain Information Group (DNS lookup utility)
+
+# dig youtube.com
+
+; <<>> DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el7_9.10 <<>> youtube.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 36365
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;youtube.com.                   IN      A
+
+;; ANSWER SECTION:
+youtube.com.            8       IN      A       142.250.68.142
+
+;; Query time: 42 msec
+;; SERVER: 9.30.99.253#53(9.30.99.253)
+;; WHEN: Tue Nov 15 11:16:21 PST 2022
+;; MSG SIZE  rcvd: 56
+
+
+# dig youtube.com MX  --> Mail exchange
+
+; <<>> DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el7_9.10 <<>> youtube.com MX
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 62404
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;youtube.com.                   IN      MX
+
+;; ANSWER SECTION:
+youtube.com.            300     IN      MX      0 smtp.google.com.
+
+;; Query time: 46 msec
+;; SERVER: 9.30.99.253#53(9.30.99.253)
+;; WHEN: Tue Nov 15 11:17:29 PST 2022
+;; MSG SIZE  rcvd: 71
+
+
+# dig proxyserver1-4-61.fyre.ibm.com MX
+
+; <<>> DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el7_9.10 <<>> proxyserver1-4-61.fyre.ibm.com MX
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 56995
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;proxyserver1-4-61.fyre.ibm.com.        IN      MX
+
+;; AUTHORITY SECTION:
+fyre.ibm.com.           300     IN      SOA     fyre.ibm.com. fidns1.fyre.ibm.com. 2211151529 21600 3600 604800 300
+
+;; Query time: 1 msec
+;; SERVER: 9.30.99.253#53(9.30.99.253)
+;; WHEN: Tue Nov 15 11:18:42 PST 2022
+;; MSG SIZE  rcvd: 102
+
+
+
+
+# arp
+Address                  HWtype  HWaddress           Flags Mask            Iface
+9.30.0.251               ether   20:20:09:1e:00:fb   C                     eth1
+10.11.69.101             ether   00:00:0a:0b:45:65   C                     eth0
+10.11.71.236             ether   00:00:0a:0b:47:ec   C                     eth0
+10.11.72.145             ether   00:00:0a:0b:48:91   C                     eth0
+169.254.169.254                  (incomplete)                              eth0
+10.11.67.15              ether   00:00:0a:0b:43:0f   C                     eth0
+10.11.73.48              ether   00:00:0a:0b:49:30   C                     eth0
+10.11.74.127             ether   00:00:0a:0b:4a:7f   C                     eth0
+10.11.76.193             ether   00:00:0a:0b:4c:c1   C                     eth0
+10.11.66.186             ether   00:00:0a:0b:42:ba   C                     eth0
+10.11.76.105             ether   00:00:0a:0b:4c:69   C                     eth0
+10.11.75.27              ether   00:00:0a:0b:4b:1b   C                     eth0
+10.11.64.5               ether   b8:ce:f6:22:fb:63   C                     eth0
+10.11.68.166             ether   00:00:0a:0b:44:a6   C                     eth0
+9-30-0-0-fo.svl.ibm.com  ether   d8:67:d9:08:4e:c1   C                     eth1
+9-30-0-0-fo2.svl.ibm.co  ether   d8:67:d9:08:db:41   C                     eth1
+10.11.67.133             ether   00:00:0a:0b:43:85   C                     eth0
+9-30-0-0-gw.svl.ibm.com  ether   00:00:0c:07:ac:01   C                     eth1
+10.11.74.153             ether   00:00:0a:0b:4a:99   C                     eth0
+10.11.76.90              ether   00:00:0a:0b:4c:5a   C                     eth0
+10.11.71.37              ether   00:00:0a:0b:47:25   C                     eth0
+10.11.67.187             ether   00:00:0a:0b:43:bb   C                     eth0
+10.11.71.128             ether   00:00:0a:0b:47:80   C                     eth0
+10.11.70.71              ether   00:00:0a:0b:46:47   C                     eth0
+10.11.69.166             ether   00:00:0a:0b:45:a6   C                     eth0
+10.11.64.251             ether   20:20:0a:0b:40:fb   C                     eth0
+10.11.67.210             ether   00:00:0a:0b:43:d2   C                     eth0
+10.11.76.118             ether   00:00:0a:0b:4c:76   C                     eth0
+10.11.66.243             ether   00:00:0a:0b:42:f3   C                     eth0
+10.11.67.170             ether   00:00:0a:0b:43:aa   C                     eth0
+
+
+
+
+# ip neigh
+9.30.0.251 dev eth1 lladdr 20:20:09:1e:00:fb STALE
+10.11.69.101 dev eth0 lladdr 00:00:0a:0b:45:65 STALE
+10.11.71.236 dev eth0 lladdr 00:00:0a:0b:47:ec STALE
+10.11.72.145 dev eth0 lladdr 00:00:0a:0b:48:91 STALE
+169.254.169.254 dev eth0  FAILED
+10.11.67.15 dev eth0 lladdr 00:00:0a:0b:43:0f STALE
+10.11.73.48 dev eth0 lladdr 00:00:0a:0b:49:30 STALE
+10.11.74.127 dev eth0 lladdr 00:00:0a:0b:4a:7f STALE
+10.11.76.193 dev eth0 lladdr 00:00:0a:0b:4c:c1 STALE
+10.11.66.186 dev eth0 lladdr 00:00:0a:0b:42:ba STALE
+10.11.76.105 dev eth0 lladdr 00:00:0a:0b:4c:69 STALE
+10.11.75.27 dev eth0 lladdr 00:00:0a:0b:4b:1b STALE
+10.11.64.5 dev eth0 lladdr b8:ce:f6:22:fb:63 STALE
+10.11.68.166 dev eth0 lladdr 00:00:0a:0b:44:a6 STALE
+9.30.0.2 dev eth1 lladdr d8:67:d9:08:4e:c1 STALE
+9.30.0.3 dev eth1 lladdr d8:67:d9:08:db:41 STALE
+10.11.67.133 dev eth0 lladdr 00:00:0a:0b:43:85 STALE
+9.30.0.1 dev eth1 lladdr 00:00:0c:07:ac:01 REACHABLE
+10.11.74.153 dev eth0 lladdr 00:00:0a:0b:4a:99 STALE
+10.11.76.90 dev eth0 lladdr 00:00:0a:0b:4c:5a STALE
+10.11.71.37 dev eth0 lladdr 00:00:0a:0b:47:25 STALE
+10.11.67.187 dev eth0 lladdr 00:00:0a:0b:43:bb STALE
+10.11.71.128 dev eth0 lladdr 00:00:0a:0b:47:80 STALE
+10.11.70.71 dev eth0 lladdr 00:00:0a:0b:46:47 STALE
+10.11.69.166 dev eth0 lladdr 00:00:0a:0b:45:a6 STALE
+10.11.64.251 dev eth0 lladdr 20:20:0a:0b:40:fb STALE
+10.11.67.210 dev eth0 lladdr 00:00:0a:0b:43:d2 STALE
+10.11.76.118 dev eth0 lladdr 00:00:0a:0b:4c:76 STALE
+10.11.66.243 dev eth0 lladdr 00:00:0a:0b:42:f3 STALE
+10.11.67.170 dev eth0 lladdr 00:00:0a:0b:43:aa STALE
+
+
+
+[root@smartens1 ~]# nslookup
+> google.com
+Server:         9.30.99.253
+Address:        9.30.99.253#53
+
+Non-authoritative answer:
+Name:   google.com
+Address: 142.251.32.238
+Name:   google.com
+Address: 2607:f8b0:4000:80b::200e
+> 9.30.0.79
+** server can't find 79.0.30.9.in-addr.arpa.: NXDOMAIN
+> youtube.com
+Server:         9.30.99.253
+Address:        9.30.99.253#53
+
+Non-authoritative answer:
+Name:   youtube.com
+Address: 142.250.68.142
+Name:   youtube.com
+Address: 2607:f8b0:4000:800::200e
+
+
+
+ipset — administration tool for IP sets
+
+
+whois is most like a DB instead a command (directory service
+
+# whois facebook.com
+   Domain Name: FACEBOOK.COM
+   Registry Domain ID: 2320948_DOMAIN_COM-VRSN
+   Registrar WHOIS Server: whois.registrarsafe.com
+   Registrar URL: http://www.registrarsafe.com
+   Updated Date: 2022-01-26T16:45:06Z
+   Creation Date: 1997-03-29T05:00:00Z
+   Registry Expiry Date: 2031-03-30T04:00:00Z
+   Registrar: RegistrarSafe, LLC
+   Registrar IANA ID: 3237
+   Registrar Abuse Contact Email: abusecomplaints@registrarsafe.com
+   Registrar Abuse Contact Phone: +1-650-308-7004
+   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+   Domain Status: serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited
+   Domain Status: serverTransferProhibited https://icann.org/epp#serverTransferProhibited
+   Domain Status: serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited
+   Name Server: A.NS.FACEBOOK.COM
+   Name Server: B.NS.FACEBOOK.COM
+   Name Server: C.NS.FACEBOOK.COM
+   Name Server: D.NS.FACEBOOK.COM
+   DNSSEC: unsigned
+   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+>>> Last update of whois database: 2022-11-15T19:28:00Z <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+
+
+
+whois --verbose facebook.com
+
+
+
+
+nmap - Network exploration tool and security / port scanner   (Network mapper, used for PEN Tests)
+
+[root@smartens1 ~]# nmap -sT 127.0.0.1
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2022-11-15 11:31 PST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00049s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+111/tcp open  rpcbind
+631/tcp open  ipp
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+
+[root@smartens1 ~]# nmap -O 9.30.1.0/23
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2022-11-15 11:37 PST
+Stats: 0:00:13 elapsed; 0 hosts completed (0 up), 511 undergoing ARP Ping Scan
+ARP Ping Scan Timing: About 86.30% done; ETC: 11:37 (0:00:02 remaining)
+Stats: 0:00:32 elapsed; 16 hosts completed (64 up), 64 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 1.43% done; ETC: 11:56 (0:18:26 remaining)
+Stats: 0:00:34 elapsed; 16 hosts completed (64 up), 64 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 1.49% done; ETC: 11:56 (0:18:43 remaining)
+Stats: 0:00:49 elapsed; 16 hosts completed (64 up), 64 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 2.15% done; ETC: 12:02 (0:24:19 remaining)
+Stats: 0:01:14 elapsed; 16 hosts completed (64 up), 64 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 3.17% done; ETC: 12:07 (0:28:59 remaining)

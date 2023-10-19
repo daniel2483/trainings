@@ -1,0 +1,45 @@
+###############################################################################
+
+CentOS/Redhat 5,6,7
+
+Enhanced feature
+Fixes bugs
+
+CentOS and RHEL difference, the different is support
+
+Total versions
+
+RHEL 7:
+/var/log
+journalctl
+
+systemctl shutdown
+systemctl poweroff
+systemctl halt
+systemctl reboot
+systemctl set-default
+/etc/default/grub
+grub2-mkconfig
+grub-set-default
+
+xfs filesystem
+
+
+###############################################################################
+
+CentOS/Redhat 7 and 8
+
+RHEL 8
+Is available for production use with lots of developer-friendly capacbilities
+
+Release announced on May 7 2019
+
+Changes:
+Code Name: Ootpa
+EOS May 2029
+Network Time Synchronization Only Chrony
+Default Frewall Firewalld nftables
+Max supporte File and FS Size XFS=1024TB
+Package management YUM and DNF
+Max RAM supported 24TB 
+

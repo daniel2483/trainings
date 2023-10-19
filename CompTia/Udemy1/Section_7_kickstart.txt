@@ -1,0 +1,85 @@
+Automate linux installation
+
+No intervention from user
+- Language and time zone
+- How drives should partitioned
+- Which packages should be installed
+
+
+Purpose?
+What happen if needs to install on 1000000 servers
+
+
+To use kickstart
+1. Choose kickstart server and create/edit a kickstart file
+2. Make a kickstart file available on a network location
+3. Make the installation source available (ISO file)
+4. Make boot media available for client which will be used to begin the installation
+5. Start the kickstart installation
+
+CentOS/RHEL 7
+- Can be downloaded which allows you to define parameters through the GUI
+yum install system-config-kickstart
+
+- Or you can use the installation kickstart file which was createdf during the first installation (anaconda-ks.cfg)
+
+
+CentOS/RHEL 8
+There is no GUI availble to edit the file
+
+Why change?
+Most systems are virtual and templates can be used
+Automation software are in used such as Ansible
+
+1. identify the server
+
+2. Take a snapshot of the server
+
+3. Install kickstart configurator (for version 7)
+	yum install system-config-kickstart
+
+4. Start the kickstart file configurator and define parameters OR use the /root/anaconda-ks.cfg
+	The GUI system-config-kickstart
+	anaconda is the name of the installation wizard of the Linux installation Linux
+
+5. Make sure httpd package is installed
+	rpm -qa | grep http
+	yum/dnf install httpd
+
+	systemctl status httpd
+	systemctl start httpd
+	systemctl enable httpd
+
+6. Copy kickstart file to httpd directory and change the permissions
+	copy /root/anaconda-ks.cfg /var/www/html ---> Default directory of httpd
+	chmod a+r /var/www/html/anaconda-ks.cfg
+	systemctl stop|disable firewalld
+	sestatus
+	Check the file is acccesable from http://x.x.x.x/anaconda-ks.cfg
+
+7. Create a new VM and attach the CentOS iso image
+	
+8. Change the network adapter to Bridged adapter
+
+9. In GRUB hit escape
+
+10. boot: linux ks=http://x.x.x.x/anaconda-ks.cfg
+	for NFS > boot: linux inst.ks=nfs:x.x.x.x:/rhel8
+
+11. Wait and enjoy the automated installation
+	At the end will show the Summary installation
+
+
+If Kickstart needs to be run on static IP servers
+boot: linux ks=http://x.x.x.x/anaconda-ks.cfg ksdevice=eth0 IP:192.168.1.50 netmask=255.255.255.0 gateway=192.168.1.1
+
+
+
+
+
+
+
+
+
+
+

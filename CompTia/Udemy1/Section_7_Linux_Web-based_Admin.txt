@@ -1,0 +1,32 @@
+Cockpit is a server admin tool sponsored by Red Hat, focused on providing a modern-looking an user-friendly interface to manage and administers servers
+
+
+Ease to use
+
+Available on Linux distros: CentOS, RedHat, Ubuntu and Fedora.
+
+It is install in RedHat 8 by default and optional in version 7
+
+
+Monitor system and resources
+
+
+Install, configure and manage Cockpit
+
+
+yum/dnf install cockpit -y
+apt-get install cockpit
+
+
+Enable the service/start and check status
+# systemctl start cockpit
+# systemctl enable cockpit
+# systemctl status cockpit
+
+
+Access the web interface
+https://ip_address:9090
+
+
+
+

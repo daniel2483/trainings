@@ -1,0 +1,22 @@
+Related Section 5. User creation
+
+- Open source of LDAP
+	
+- OpenLDAP Service: 
+	slapd
+	systemctl start slapd
+	systemctl stop slapd
+	
+- Configuration Files:
+	/etc/openldap/slapd.d
+
+- Installation:
+	yum install *openldap*
+	systemctl start slapd
+	systemctl status slapd
+	ps -fe | grep slapd
+	cd /etc/openldap/slapd.d/
+	Also change 
+	/etc/nsswitch.conf
+	
+	LDAP is install in a dependent Linux server to become a directory server.

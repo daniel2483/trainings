@@ -1,0 +1,50 @@
+Linux OS Hardening
+
+- User account
+	user id - cat /etc/passwd
+	chage -l <username>
+	chage --help
+	cat /etc/shadow
+	cat /etc/login.defs
+
+	cd /etc/pam.d
+	cat system-auth
+- Remove un-wanted packages
+	rpm -qa
+	rpm -qa | wc -l
+	rpm -e <package_name>
+- Stop un-used Services
+	systemctl -a
+	
+- Check on Listening Ports
+	netstat -tulnp
+- Secure SSH Configuration
+	/etc/ssh/sshd_config
+	Port 22 --> Port 1022
+	PermitRootLogin no
+- Enable Firewall (iptables/firewalld)
+	In GUI: firewall-config
+	firewall-cmd --help
+	iptables --help
+	iptables --list
+	cd /etc/sysconfig
+	cat iptables-config
+	cd /etc/firewalld/
+	firewalld.conf
+- Enable SELinux
+	sestatus
+	To disable it:
+		cd /etc/sysconfig/
+		vi selinux
+		Change line
+		SELINUX=enforcing/permissive/disable 
+		and then reboot system
+	stat <filename>
+	chcon (Change file SELinux Security context)
+	checkpolicy (SElinux policy compiler)
+- Change Listening Services Port Numbers
+	
+- Keep your OS up to date (security patching)
+	Update:
+	Sign on RHEL
+

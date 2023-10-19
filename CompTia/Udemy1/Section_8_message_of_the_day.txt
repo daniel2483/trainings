@@ -1,0 +1,34 @@
+###########################################################
+
+Message to be seen when login:
+
+edit
+/etc/motd
+
+###########################################################
+
+Customize message of the day
+
+Steps:
+Create a new file in: /etc/profife.d/motd.sh
+Add desired commands in motd.sh file
+Modify the /etc/ssh/sshd_config file to edit
+	#PrintMotd yes to PrintMotd no
+Restart sshd service
+	systemctl restart sshd
+
+
+# cat /etc/profile.d/mtod.sh
+#!/usr/bin/bash
+
+echo -e "
+####################################################
+# This is Lab environment Orchestrator 4.0.0       #
+# Created by Daniel Rodriguez                      #
+# The OS is a `cat /etc/redhat-release`
+# Please be careful of what you do on this server  #
+#                                                  #
+# You are logging as: `whoami`
+#                                                  #
+####################################################
+"

@@ -1,0 +1,11 @@
+docker exec -it faspex_router bash
+
+timedatectl list-timezones
+
+timedatectl -M=faspex_router set-timezone America/Los_Angeles
+
+timedatectl -M=faspex_router set-timezone America/Denver
+
+America/Denver
+
+./faspex/vendor/ruby/lib/ruby/gems/1.9.1/gems/activesupport-3.2.2/lib/active_support/core_ext/date_time/zones.rb

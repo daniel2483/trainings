@@ -1,0 +1,129 @@
+ifconfig
+
+Commands for network
+ping
+ifconfig
+ifup
+ifdown
+netstat
+tcpdump
+
+Commands to check NIC
+ethtool interface
+
+NIC Port Bonding
+modinfo bonding to check the driver is installed
+
+Create Bond Interface File
+vi /etc/sysconfig/network-scripts/ifcfg-bond0
+Add the following parameters
+
+DEVICE=bond0
+TYPE=Bond
+NAME=bond0
+BONDING_MASTER=yes
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR=192.168.1.80
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+BONDING_OPTS=”mode=5 miimon=100”
+
+Edit the First NIC File (enp0s3)
+vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
+Delete the entire content
+Add the following parameters
+TYPE=Ethernet
+BOOTPROTO=none
+DEVICE=enp0s3
+ONBOOT=yes
+HWADDR=”MAC from the ifconfig command”
+MASTER=bond0
+SLAVE=yes
+Save and exit the file
+
+Create the Second NIC File (enp0s8) or Copy enp0s3
+vi /etc/sysconfig/network-scripts/ifcfg-enp0s8
+Add the following parameters
+TYPE=Ethernet
+BOOTPROTO=none
+DEVICE=enp0s8
+ONBOOT=yes
+HWADDR=”MAC from the ifconfig command”
+MASTER=bond0
+SLAVE=yes
+Save and exit the file
+Restart the Network Service
+systemctl restart network
+Test and verify the configuration
+ifconfig or ifconfig | more
+
+Use following command to view bond interface settings like bonding mode & slave interface
+cat /proc/net/bonding/bond0
+
+
+
+
+Network utilities:
+nmcli
+nmtui
+nm-connection
+GNOME settings
+
+
+Team or Bond does the same functionality, this can be picked from nmtui
+
+
+[root@MyFirstLinuxVM ~]# nmcli con show
+NAME           UUID                                  TYPE      DEVICE
+bond0          ad33d8b0-1f7b-cab9-9447-ba07f855b143  bond      bond0
+virbr0         a3bfdd26-bdb8-49a9-8292-b63ac2e60da4  bridge    virbr0
+System enp0s3  3c36b8c2-334b-57c7-91b6-4401f3489c69  ethernet  enp0s3
+System enp0s8  00cb8299-feb9-55b6-a378-3fdc720e0bc6  ethernet  enp0s8
+
+[root@MyFirstLinuxVM ~]# nmcli device
+DEVICE      TYPE      STATE      CONNECTION
+bond0       bond      connected  bond0
+virbr0      bridge    connected  virbr0
+enp0s3      ethernet  connected  System enp0s3
+enp0s8      ethernet  connected  System enp0s8
+lo          loopback  unmanaged  --
+virbr0-nic  tun       unmanaged  --
+
+Making an interface with a static address:
+nmcli connection modify enp0s3 ipv4.addresses 192.168.0.XX/24
+nmcli connection modify enp0s3 ipv4.gateway 192.168.0.1
+nmcli connection modify enp0s3 ipv4.method manual
+nmcli connection modify enp0s3 ipv4.dns 8.8.8.8
+nmcli connection down enp0s3 && nmcli connection up enp0s3
+ip address show enp0s3
+
+
+
+Adding a secondary static IP:
+nmcli device status
+nmcli connection show --active
+ifconfig
+nmcli connection modify enp0s3 +ipv4.addresses ip_address_secondary/24
+nmcli connection reload
+systemctl reboot
+ip address show
+
+
+nm-connection-editor
+a GUI see something like nmtui
+
+GNOME GUI
+Application --> System Tools --> Settings --> Network
+
+
+
+152. Rollback Patches and Updates
+
+Create a VM snapshot before applying patches
+
+
+153. SSH and Telnet
+
+
+

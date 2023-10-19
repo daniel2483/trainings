@@ -1,0 +1,68 @@
+##########################################################################
+NTP : Time synchronization
+
+/etc/ntp.conf
+systemctl restart ntpd
+systemctl enable ntpd   -> To start on reboot
+
+# ntpq
+ntpq> peers
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+ fintpsvl1p.fyre .STEP.          16 u    - 1024    0    0.000    0.000   0.000
+ 172.16.200.71   .STEP.          16 u    - 1024    0    0.000    0.000   0.000
+*fintpsvl1.svl.i 9.30.4.100       2 u  814 1024  377    0.210    0.056   0.041
++fintpsvl2.svl.i 9.30.4.99        2 u  332 1024  377    0.202    0.021   0.126
+
+systemctl stop ntpd
+
+NTP port 123
+
+
+##########################################################################
+
+Latest version on NTP
+chronyd
+
+/etc/chronyd.conf
+
+log file: /var/log/chrony
+
+rpm -qa | grep chrony
+
+yum install chrony
+
+
+
+ntpd and Chronyd should not run at the same time.
+
+
+chronyc	--> for interactive mode
+chronyc> sources
+
+##########################################################################
+
+timedatectl available on RHEL/CentOS 7/8
+
+shows/change date,time and timezone
+
+
+Other daemon similar to NTP daemon as lightweight
+systemd-timesyncd
+
+timedatectl list-timezones
+timedatectl set-timezone "America/New_York"
+timedatectl set-time YYYY-MM-DD
+timedatectl set-time 'YYYY-MM-DD HH:MM:SS'
+timedatectl set-ntp true
+
+
+
+
+
+
+
+
+
+
+

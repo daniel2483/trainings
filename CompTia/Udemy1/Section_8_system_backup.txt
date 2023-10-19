@@ -1,0 +1,29 @@
+System Backup
+
+dd - data duplicator
+
+5 types of backups:
+1. System backup (entire image using tools such as acronis, Veeam, Commvault, etc)
+2. Application backup (3rd party app backup solution)
+3. Database backup (Oracle dataguard, SQL backup, etc)
+4. Filesystem backup (tar, gzip directories, etc)
+5. Disk backup or disk cloning (dd command)
+
+dd is a command utility for Unix and Unix-like OS whose primary purpose is to convert and copy files
+
+As a result, dd can be used for tasks such as backuing up the boot sector of a hard drive, and obtaining a fixed amount of random data
+
+Please note the source and dest disk should be the same size
+
+To backup or clone an entire disk to another hard disk connected to the same system, execute the dd command as shown:
+
+# dd if=<source_file_name> of=<target_file_name> [options]
+Example:
+# dd if=/dev/sda of=/dev/sdb
+
+To backup/copy the disk partition:
+# dd if=/dev/sda1 of=/root/sda1.img
+
+Restoring this image file to other machine after copying the .img
+# dd if=/root/sda1.img of=/dev/sdb3
+

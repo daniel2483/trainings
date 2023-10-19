@@ -1,0 +1,97 @@
+####################################################################
+
+Disk partition
+
+
+-df
+df -h
+
+-fdisk
+fdisk -l
+
+# fdisk -l
+
+Disk /dev/vda: 429.5 GB, 429496729600 bytes, 838860800 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000f17d0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vda1   *        2048     2099199     1048576   83  Linux
+/dev/vda2         2099200   781250000   389575400+  8e  Linux LVM
+
+Disk /dev/mapper/centos-root: 381.7 GB, 381744578560 bytes, 745594880 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/centos-swap: 17.2 GB, 17175674880 bytes, 33546240 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+#
+
+
+
+####################################################################
+
+Add disk and creating new partition
+
+
+Purpose, out of space or adding new Apps
+
+df
+fdisk
+
+
+fdisk /dev/sdb (name of the disk) and hit enter
+help
+Command (m for help): n (new)
+Partition Type:
+   p primary (0 primary, 0 extended, 4 free)
+   e extended
+Select (default p): p
+Partition number (1-4, default 1):
+First Sector (2048-4194303, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-4194303, default 4194303):
+Using default 4194303
+Partition 1 of type Linux of size 2 GiB is set
+
+Command (m for help): w
+
+
+
+Is already created now we need to set a filesystem type
+
+
+mkfs.xfs /dev/sdb1
+
+
+No this needs to be mounted
+
+mkdir data
+mount /dev/sdb1 /data
+
+
+Add in fstab:
+/dev/sdb1	/data	xfs	defaults 	0	0
+
+
+
+To unmount
+umount /data
+df -h
+
+
+mount -a > to mount the partitions from file fstab
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+SSH - Secure Shell, Interface to the Linux System
+
+Service Daemon: sshd
+
+SSH port #22 by default
+
+Communication is always encrypted
+
+
+Configure Idle Timeout Interval
+/etc/ssh/sshd_config
+ClientAliveInterval	600
+ClientAliveCountMax	0
+# systemctl restart sshd
+
+
+Disable root login
+PermitRootLogin	no
+# systemctl restart sshd
+
+
+Disable empty passwords
+PermitEmptyPasswords	no
+# systemctl restart sshd
+
+
+Limit User's SSH access
+AllowUsers user1 user2
+# systemctl restart sshd
+
+
+Use a different port
+Port 22
+# systemctl restart sshd
+
+
+SSH Keys - Access Remote Server without Password
+

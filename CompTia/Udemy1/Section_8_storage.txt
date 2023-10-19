@@ -1,0 +1,19 @@
+Computer Storage
+
+- Local storage:
+RAM, SSD, HDD, etc
+
+DAS (Direct Attached Storage)
+	CD/DVD, USB flash, external disk
+
+SAN (Storage Area Network)
+	Storage attaced through iSCSI or fiber cable
+	SAN adapter and install the driver
+
+NAS (Network Attached storage)
+	Over network TCP/IP
+	Samba, NFS, etc
+
+
+
+

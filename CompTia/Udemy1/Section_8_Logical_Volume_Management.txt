@@ -1,0 +1,97 @@
+###################################################################
+
+LVM allows disks to be combined together
+
+
+###################################################################
+
+LVM Config can be done during installation
+
+
+###################################################################
+
+As root
+fdisk -l | grep more
+
+
+fdisk /dev/sdc
+new
+primary
+1
+2048
+enter
+p
+t to change partition system id
+L 8e Linux LVM
+p
+w to write
+
+
+Physical volume
+pvcreate /dev/sdc1
+pvdisplay
+vgcreate <vg_name> /dev/sdc1
+vgdisplay
+
+To create logical volumes
+lvcreate -n <lv_name> --size 1G <vg_name>
+lvcreate -n <lv_name> --size 1000M <vg_name>
+lvdisplay
+
+mkfs.xfs /dev/<vg_name>/<lv_name>
+
+mkdir /oracle
+mount /dev/<vg_name>/<lv_name> /oracle
+df -h
+
+###################################################################
+
+Add and extend disk using LVM
+
+Example:
+/oracle
+
+Options
+Delete older files to free up disk space.
+Add a new physical disk mount to /oracle2
+Create a new virtual disk and mount to /oracle2
+Or extend /oracle through LVM
+
+
+fdisk -l
+fdisk /dev/sdd
+n
+p
+enter
+enter
+enter
+t
+L
+8e
+p
+w to create the partition
+
+
+reboot the system
+
+su root
+fdisk -l /dev/sdd1
+pvdisplay
+pvs
+
+
+vgdisplay <vg_name>
+pvcreate /dev/sdd1
+vgextend <vg_name> /dev/sdd1
+lvextend -L+1024M /dev/mapper/<vg_name>-<lv_name>
+xfs_growfs /dev/mapper/<vg_name>-<lv_name>
+
+
+pvcreate /dev/sdd1
+vgextend <vg_name> /dev/sdd1
+lvextend -L+20GB /dev/mapper/<vg_name>-<lv_name>
+resize2fs /dev/mapper/<vg_name>-<lv_name> 
+
+
+
+

@@ -1,0 +1,118 @@
+Containers
+
+You can move the application anywhere without moving its OS just like moving the actual physical container anywhere that would fit on any dockyard, truck, ship or warehouse
+
+An OS can run single or multiple containers at the same time
+
+docker - Solomon Hykes - 2013 March 20th
+- to create and manage containers
+- can be installed on Linux system
+
+podman - By Red Hat - August 2018
+- alternative of docker
+- Docker is not supported on RHEL 8
+
+
+Getting familiar with RHEL Container technology
+
+Tools that can operate without container engine:
+podman 	- for directly managing pods and container images (run, stop, start, ps, attach, etc)
+buildah	- for building, pushing, and signing container images
+skopeo	- for copying, inspecting, deleting and signing images
+runc		- for providing container run and build features to podman and buildah
+crun		- an optional runtime that can be configured and gives greater flexibility, control, and security for rootless containers
+
+
+Getting familiar with podman Container technology
+
+terms:
+images - can be created through images and containers can be converted to images
+pods - Group of containers deployed together on the host
+
+Building, Running and Managing containers
+
+yum/dnf install -y podman
+yum/dnf install -y docker
+
+
+alias docker=podman
+
+Version
+podman -v
+
+podman --help
+
+Check podman registry/repo info
+podman info
+
+Look for an image
+podman search httpd
+
+
+To list any downloaded podman images
+podman images
+
+
+To download available images
+podman pull docker.io/library/httpd
+podman images
+
+Run the container
+# podman run -dt -p 8080:80/tcp docker.io/library/httpd
+54e9d98e82784ccaeaf4eb4bf905d4f1c49ad2e91774e27c9830833f013c7afc
+
+-d detach
+-t get the tty shell
+-p port
+
+# podman ps
+CONTAINER ID  IMAGE                           COMMAND           CREATED             STATUS                 PORTS                 NAMES
+54e9d98e8278  docker.io/library/httpd:latest  httpd-foreground  About a minute ago  Up About a minute ago  0.0.0.0:8080->80/tcp  fervent_haibt
+
+
+
+Podman logs
+# podman logs -l
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 10.88.0.2. Set the 'ServerName' directive globally to suppress this message
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 10.88.0.2. Set the 'ServerName' directive globally to suppress this message
+[Tue Dec 06 02:27:13.580492 2022] [mpm_event:notice] [pid 1:tid 140172934688064] AH00489: Apache/2.4.54 (Unix) configured -- resuming normal operations
+[Tue Dec 06 02:27:13.580801 2022] [core:notice] [pid 1:tid 140172934688064] AH00094: Command line: 'httpd -D FOREGROUND'
+9.163.42.202 - - [06/Dec/2022:02:29:58 +0000] "GET / HTTP/1.1" 200 45
+9.163.42.202 - - [06/Dec/2022:02:29:58 +0000] "GET /favicon.ico HTTP/1.1" 404 196
+
+
+Stop a container
+# podman ps
+CONTAINER ID  IMAGE                           COMMAND           CREATED        STATUS            PORTS                 NAMES
+54e9d98e8278  docker.io/library/httpd:latest  httpd-foreground  4 minutes ago  Up 4 minutes ago  0.0.0.0:8080->80/tcp  fervent_haibt
+# podman stop 54e9d98e8278
+54e9d98e82784ccaeaf4eb4bf905d4f1c49ad2e91774e27c9830833f013c7afc
+# podman ps
+CONTAINER ID  IMAGE  COMMAND  CREATED  STATUS  PORTS  NAMES
+#
+
+
+To run multiple containers of httpd by changing the port #
+podman run -dt -p 8081:80/tcp docker.io/library/httpd
+podman run -dt -p 8082:80/tcp docker.io/library/httpd
+
+
+To create a new container from the download image:
+podman create --name httpd-con docker.io/library/httpd
+podman start httpd-con
+
+
+Manage containers through systemd
+1. First generate a unit file
+podman generate systemd --new --files --name httpd-con
+2. Copy it systemd directory
+cp /root/container-httpd.service /etc/systemd/system
+3. Enable the service
+systemctl enable container-httpd.service
+4. Start the service
+systemctl start container-httpd.service
+systemctl status container-httpd.service
+
+
+
+
