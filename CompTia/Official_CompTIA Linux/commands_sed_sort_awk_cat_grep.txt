@@ -1,0 +1,65 @@
+cat file.csv
+cat file.csv | awk '{print $1}' FS=","
+cat file.csv | awk '{print $2}' FS=","
+cat file.csv | awk '{print $1}' FS="-"
+cat file.csv | awk '{print $1 \t }' FS="-"
+cat file.csv | awk '{print $1 "\t" }' FS="-"
+cat file.csv | awk '{print $1 ----- }' FS="-"
+cat file.csv | awk '{print $1 "-----" }' FS="-"
+cat file.csv | awk '{print $1 "-----" printt $2}' FS="-"
+cat file.csv | awk '{print $1 "\t" printt $2}' FS="-"
+cat file.csv | awk '{print $1 "\n" printt $2}' FS="-"
+cat file.csv | awk '{print $1 "\s" printt $2}' FS="-"
+cat file.csv | awk '{print $1 "\s\s" printt $2}' FS=","
+cat file.csv | awk '{print $1 "\t" printt $2}' FS="+"
+cat file.csv | awk '{print $1 "-----" printt $2 "~~~~~" printt $3}' FS=","
+cat file.csv | awk '{print $2}' FS=","
+cat file.csv | awk '{print $2}' FS="," | sort -u
+cat file.csv | awk '{print $2}' FS="," | sort -u | wc -l
+cat file.csv | awk '{print $2}' FS="," | wc -l
+sed s/,/\\t/ file.csv
+sed s/,/----/ file.csv
+sed s/,/----/g file.csv
+sed s/,//g file.csv
+sed s/,/********/g file.csv
+sed s/,/*****/g file.csv
+sed s/,/~~~~/g file.csv
+sed s/,/~~~~/ file.csv
+sed s/,/\\t/g file.csv | grep -i ANTONIO
+sed s/,/\\t/g file.csv | grep -i Antonio
+sed s/,/\\t/g file.csv | grep -i antonio
+sed s/,/\\t/g file.csv | grep -i andrea
+sed s/,/\\t/g file.csv | grep -i andrea | wc -l
+cat file.csv | awk '{print $7}' FS=","
+cat file.csv | awk '{print $7}' FS="," | sort -u
+cat file.csv | awk '{print $7}' FS="," | sort
+cat file.csv | awk '{print $7}' FS="," | sort -o text.test
+cat file.csv | awk '{print $7}' FS="," | sort -u -o text.test
+cat text.test
+cat file.csv | awk '{print $7}' FS="," | unique
+cat file.csv | awk '{print $7}' FS="," | uniq
+cat file.csv | awk '{print $7}' FS="," | wc -l
+cat file.csv | awk '{print $7}' FS="," | sort -u | wc -l
+cat file.csv | awk '{print $7}' FS="," | sort -u
+cat file.csv | awk '{print $7}' FS="," | sort -u | wc -c
+cat file.csv | awk '{print $7}' FS="," | sort -u | wc -w
+cut -b 1-13 file.csv
+cut -b 13-27 file.csv
+cat file.csv | awk '{print $8}' FS=","
+cat file.csv | awk '{print $9}' FS=","
+cat file.csv | awk '{print $9}' FS="," | sort -u
+cat file.csv | awk '(NR>1)' '{print $9}' FS="," | sort -u
+cat file.csv | awk '(NR>1)'
+cat file.csv | awk '(NR>50)'
+cat file.csv | awk '(NR>=50)'
+cat file.csv | awk '(NR>=50)' | awk FS="," '{print $8}'
+cat file.csv | awk '(NR>=50)' | awk '{print $8}'
+cat file.csv | awk '(NR>=50)' | awk '{print $8}' FS=","
+cat file.csv | awk '(NR>=50)' | awk '{print $1}' FS=","
+cat file.csv | awk '(NR>50)' | awk '{print $2}' FS=","
+cat file.csv | awk '(NR>50)' | awk '{print $2}' FS="," | sort -u
+less file.csv
+cat testing
+cat > testing
+cat testing
+ls -lh | awk '{print $1 printt $4}' FS=" "

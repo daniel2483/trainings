@@ -1,0 +1,97 @@
+1. Complete the script to compressed all the rotate logs to prevent
+
+In test:
+
+#!/usr/bin/bash
+ls /var/log | grep <blank_space> > /tmp/filename.txt
+
+<blank_space> filename in $(<blank_space>)
+do
+	<blank_space> $filename
+
+<blank_space>
+
+
+Solution in test:
+
+#!/usr/bin/bash
+
+ls /var/log | grep log.[1-8] > /tmp/filename.txt
+
+for filename in $(cat /tmp/filename.txt)
+do
+	gzip $filename
+
+done
+
+
+Real solution and tested:
+
+#!/usr/bin/bash
+
+ls /var/log | grep log.[1-9] | grep -v gz > /tmp/filename.txt
+
+for filename in $(cat /tmp/filename.txt)
+do
+	gzip /var/log/$filename
+
+done
+
+2. Find the file core and delete
+
+find / -name core
+sudo rm /<path_file>/core
+
+or
+
+sudo find / -name core -exec rm -rf {} \;
+
+
+3. Which is the the tools to check port sockets (select 2):
+netstat
+ss
+
+4. How to connect sensor to a linux system:
+GPIO
+
+5. To see the ip address of a server
+ip address ls
+or
+ip address show
+
+6. Steps sequence to do a resize of a partition using LVM
+
+For ext2/ext3/ext4 filesystem > this was the case in the exam
+
+pvcreate /dev/sdd1
+vgextend <vg_name> /dev/sdd1
+lvextend -L+20GB /dev/mapper/<vg_name>-<lv_name>
+resize2fs /dev/mapper/<vg_name>-<lv_name>
+
+For xfs
+
+pvcreate /dev/sdd1
+vgextend <vg_name> /dev/sdd1
+lvextend -L+1024M /dev/mapper/<vg_name>-<lv_name>
+xfs_growfs /dev/mapper/<vg_name>-<lv_name>
+
+
+7. Which is the first character or symbol on a Shell script
+#
+
+8. Which is the command to investigate where the network is failing
+traceroute
+
+9. Which command you can do ping and traceroute at the same time
+mtr
+
+10. How to test connection to a server
+ping
+
+11. How to run a script in the background
+/home/user/script.sh &
+
+12. A administrator is worried about running a command and the terminal session reach timeout, how this can be solved?
+nohub /home/user/script.sh
+
+13. 

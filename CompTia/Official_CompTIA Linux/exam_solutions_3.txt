@@ -1,0 +1,113 @@
+
+
+Fill in the missing options to install the package:
+dpkg _____ gcc-4.7-base_4.7.2-5_amd64.deb
+
+-i
+-install
+
+
+
+_____ refers to any process that self-starts without the need for any external assistance.
+Bootstrapping
+
+
+
+
+Use the _____ command to change the nice value of an existing job.
+renice
+
+
+
+The git _____command places a file in the staging area.
+add
+
+
+
+
+Which nano command saves a file?
+^K
+
+
+
+A nice value is used to indicate to the CPU which process has the higher priority for access to the CPU. The values range from _____ (highest priority) to _____ (lowest priority).
+-20,19
+
+
+
+
+
+What is missing from the following command?
+
+ 
+
+git push -u _____ master
+origin
+
+
+
+What setting in the /etc/sysconfig/network-scripts/ifcfg-eth0 file would be used to indicate that the IP address is statically assigned?
+BOOTPROTO
+
+
+
+A(n) _____ server uses the same protocol as Microsoft to share files across a network.
+Samba
+
+
+
+
+
+
+In the following crontab entry, what does the value 12 represent?
+crontab -l
+30 5 * 12 1 find / -name *.core > /tmp/foundit
+the month field
+
+
+
+Which command sends the standard output of the item1 command into the item2 command as standard input?
+item1 | item2
+
+
+
+
+
+Which command provides the following output?
+core file size (blocks, -c) 0
+data seg size (kbytes, -d) unlimited
+scheduling priority (-e) 0
+file size (blocks, -f) unlimited
+
+None of the above
+
+
+
+
+Which option is used with the iptables command to remove all the rules for a chain?
+-F - flush
+
+
+
+Which of the following commands can be used to load kernel modules into memory?
+modprobe
+insmod
+
+
+
+Which command can be used to display and set both the system time and the time zone?
+timedatectl
+
+
+
+
+_____ is the heart of the orchestration process and makes use of software tools (orchestration products) to perform configuration or provisioning tasks.
+IaC
+
+
+
+
+
+
+
+

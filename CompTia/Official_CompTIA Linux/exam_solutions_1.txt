@@ -1,0 +1,217 @@
+gzip -z
+bzip2 -j
+
+Explanation:
+The values of a line in the rsyslog.conf are facility.priority action.
+
+The combination of facility and priority is called the selector. For the example in the question, uucp,news.crit is the selector, uucp,news is the facility, crit is the priority, and /var/log/spooler is the action.
+
+facility	priority	action
+uucp,news.	crit 		/var/log/spooler
+
+
+The logrotate command is a utility designed to ensure that the partition holding the log files has enough room to handle them. Log file size increases over time. The logrotate command rotates log files over time to limit the filesystem space that the logs use. The syslogd, journald, and rsyslogd commands create log files; they don't ensure that the partition has enough room.
+
+
+The lsblk command displays the block devices (disks) attached to the system. The lsscsi command shows information about the SCSI devices on the system. The other answers are not valid commands.
+
+lsscsi - list SCSI devices (or hosts) and their attributes
+lsblk - list block devices
+
+The lp and lpr commands print whatever they receive on the input stream or any files passed on the command line. The other answers are not valid commands.
+
+A monolithic kernel includes all of the kernel code in a single executable program.
+
+Which of the following commands can be used to load kernel modules and module dependencies into memory?
+modprobe
+
+The base unit of storage in LVM is the physical volumes
+
+On modern systems, there are two partition schemes you can use: _____ and _____
+On modern systems there are two partition schemes you can use: MBR (master boot record) and GPT (GUID partition table). LILO and GRUB are boot loaders, not partition schemes.
+
+Which RAID level mirrors data between two hard disks?
+RAID 1
+
+Which of the following situations would prevent a filesystem from being unmounted?
+A file is open from the filesystem of the partition.
+A shell is using the mount point as the current directory.
+
+Which command is used to remove a PV from a VG?
+The vgreduce command is used to remove a physical volume (PV) from a volume group (VG). The vgremove command deletes an entire VG. The pvremove command deletes a PV by removing its LVM label. There is no pvreduce command.
+
+The filesystem parameters can be checked with the _____ command.
+dumpe2fs
+
+You are using the fdisk utility and want to display the current partition table. Which command would you provide at the following prompt?
+p - partition
+
+
+
+
+Which of the following options would be used to complete the following command and display the network address information?
+
+ip addr ____ show
+
+
+Which of the following commands can be used to display the primary network gateway for a system?
+route
+netstat
+
+
+Which two files are used to enable DNS hostname resolution?
+/etc/resolv.conf
+/etc/nsswitch.conf
+
+
+The _____ command also displays or modifies other useful network device settings, such as the supported link modes and auto-negotiation settings.
+ethtool
+
+
+Which of the following tools can be used to watch traffic on the network?
+wireshark
+tcpdump
+
+
+Which of the following terms describes any sort of delay in communication?
+latency
+
+
+Which tool can help you determine whether a remote system can be reached via the network?
+ping
+
+
+Which of the following features are valid targets for the iptables command?
+ACCEPT
+LOG
+
+
+Targets
+
+    -j RETURN: will cause the current packet to stop traveling through the chain (or sub-chain)
+    -j ACCEPT : the rule is accepted and will not continue traversing the current chain or any other ones in the same table. Note however, that a packet that was accepted in one chain might still travel through chains within other tables, and could still be dropped there
+    -j DNAT : only available within PREROUTING and OUTPUT chains in the nat table, and any of the chains called upon from any of those listed chains
+    -j SNAT: valid only in nat table, within the POSTROUTING chain
+    -j DROP: Drops the packet, right there right then
+    -j REJECT: Sends a response back (unlike drop). Valid in the INPUT, FORWARD and OUTPUT chains or their sub chains
+    -j LOG: Note: Does not work on namespaces. Also can fill up your kernel log.
+
+      	iptables -A INPUT -p tcp -j LOG --log-prefix "INPUT packets"
+
+    -j ULOG: packet information is multicasted together with the whole packet through a netlink socket. One or more user-space processes may then subscribe to various multicast groups and receive the packet
+    -j MARK: Only valid in mangle table. Note that the mark value is not set within the actual package, but is a value that is associated within the kernel with the packet. In other words does not make it out of the machine
+
+    iptables -t mangle -A PREROUTING -p tcp --dport 22 -j MARK --set-mark 2
+
+    -j MASQUERADE: Similar to SNAT but used on a outbound network interface when the outbound IP can change. Say a DHCP interface Only valid within the POSTROUTING
+    -j REDIRECT: redirect packets and streams to the machine itself. Valid within the PREROUTING and OUTPUT chains of the nat table. It is also valid within user-defined chains that are only called from those chains
+
+
+Which range includes all of the ports that are considered privileged ports?
+1-1023
+
+
+The iptables command can be used to _____ and _____.
+block network packets
+forward network packets to another system
+
+
+With a(n) _____ monitoring solution, some software has been installed on the system or component that is being monitored.
+agent
+
+
+Which of the following is not a build automation tool?
+Mark
+
+Automation tools
+Gradle
+Ant
+Cake
+
+
+Which of the following crontab entries is invalid?
+*/5 5 * 12 1  find / -name *.core > /tmp/foundit
+30 5 8 12 * find / -name *.core > /tmp/foundit		--> Correct
+30 5 * jan 1  find / -name *.core > /tmp/foundit
+30 5 1 12 sun find / -name *.core > /tmp/foundit
+
+
+
+
+In the following crontab entry, what does the value 30 represent?
+crontab -l
+30 5 * 12 1 find / -name *.core > /tmp/foundit
+The minute field
+
+
+The crontab entries edited with the crontab command are stored in the _____ directory.
+/var/spool/cron
+
+
+Which character is used to place a command in the background when the command is executed?
+&
+
+
+When run by itself, the _____ command reports system utilization, indicating how much CPU time has been used by regular user processes and system processes.
+When run by itself, the time command reports system utilization, indicating how much CPU time has been used by regular user processes and system processes. While the uptime command does report system utilization, it doesn't break it down by regular user processes and system processes. The other two answers are not valid commands.
+
+
+
+The configuration for each time zone and, by extension, any daylight saving time, is stored in the zoneinfo files under the _____ directory.
+The configuration for each time zone and, by extension, any daylight saving time, is stored in the zoneinfo files under the /usr/share/zoneinfo directory. The other answers refer to invalid directories.
+
+
+
+
+What will be the result of the following command, assuming that /usr/bin/nginx is an executable file?
+if [-x /usr/bin/nginx]; then
+ echo nginx is executable
+fi
+ The test case must have spaces inside the square brackets. So, it should be this:
+[ -x /usr/bin/nginx ]
+and not this:
+[-x /usr/bin/nginx]
+As a result, an error will be displayed. Because of this error, the other answers are not possible as they would occur only if there were no error in the code.
+
+
+Which commands display all environment variables but not local variables?
+printenv
+env
+
+
+
+
+You have created a BASH script named test.sh. In order to run the script, you must change its permissions. Which of the following would you add in the blank to the following command to make this happen:
+chmod a+_ test.sh
+x
+
+
+What character(s) should appear at the beginning of the first line a shell script?
+#!
+
+
+The git _____ command gets new content from a remote repository and places it into the local repository.
+
+
+You want to prevent a file from going into the git repository. How can this be accomplished?
+Add the filename to the .gitignore file.
+
+
+Which action does the git clone command not perform?
+The git clone command creates a local repository, creates a directory where you can directly see the files, and creates a staging area. It does not set default git parameters.
+
+
+Which of the following is considered a best practice in securing boot loaders?
+Enable a password on the boot loader.
+
+
+Which service is designed to ensure that the system time of a client host is accurate?
+NTP
+
+
+_____ is a system that provides information about publicly known vulnerabilities.
+CVE
+
+
+
+

@@ -1,0 +1,11 @@
+For search:
+apropos search
+
+Looking for patterns commands:
+apropos pattern
+
+grep is the command for look to patterns
+
+/bin/testsh
+
+

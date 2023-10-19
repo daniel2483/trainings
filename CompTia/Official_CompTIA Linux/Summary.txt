@@ -1,0 +1,254 @@
+1. fdisk --> used to create, modify or delete partitions
+Syntax
+fdisk [options] {device name}
+
+-b {sector size}	--> Specify number of drive sectors.
+-H {heads}		--> Specify the number of drive heads
+-S {sectors}		--> Print the partition size in blocks
+-l			--> List partition tables for devices
+
+fdisk menu options
+n	--> Create new partitions
+d	--> Remove a partitions
+p	--> List the existing partitions
+w	--> Write the changes to the drive and exit the utility
+q	--> Cancel the changes made and exit the utility
+
+2. GNU Parted --> utility also to manage partitions. Is useful for creating partitions on new storage drives. Can be used to create, destroy, and resize partitions.
+parted command
+
+Example:
+parted /dev/sda
+
+Syntax:
+parted [options] {device name}
+
+GNU Parted menu options
+select		--> Choose which device or partition to modify
+mkpart		--> Create a partition with a specified file system type
+print		--> List the partition table
+resizepart	--> Modify the end position of a partition
+rm		--> Delete a partition
+quit		--> Exit the GNU Parted utility
+
+3. partprobe command --> Is used to update the kernel with changes in the partition table. It automatically updates the kernel with the changes. It comes packaged with GNU parted utility
+
+Syntax
+partprobe [options] {device name}
+
+4. mkfs command --> used to build Linux filesystem on device
+
+Options
+-v		--> Verbose output
+-V		--> Produce verbose output, including file system-specific commands.
+-t {fs type}	--> Specify the type of file system to be built
+-c		--> Check the device for bad blocks before building the file system.
+-l {file name}	--> Read the listof bad blocks from a specified file.
+
+Syntax
+mkfs [options] {device name}
+or
+mkfs {file system type} [options] {device name}
+
+5. The fstab file --> Is a configuration file that stores info about storage devices and partitions and where and how partitions should be mounted. This file is read by the system at boot time and can be edited only by root
+
+Each line in fstab has 6 fields, separated by spaces or tabs.
+
+Device or partition name--> Name of dev or FS to mount
+Default mount point	--> Indicates where FS is mounted
+Filesystem type		--> Specifies the type of FS used by the device
+Mount options		--> Specifies a set of comma-separated options
+dump options		--> Indicate if dump utility should backup the FS, 0 indicates that dump can ignore the FS.
+fsck			--> Specifies order in which fsck utility should check the FS
+
+cryttab file --> Similar functions to fstab file, but purpose is to store info about encrypted devices and partitions, includes an optional password field for unlocking the encrypted device
+
+6. /dev/ directory --> Contains files that represent and support devices attached to the system. For storage the naming convention is expressed in 3 parts, example /dev/sda1
+	- sd portions refers to a specific type of controller that the device is using (SCSI/SATA)
+	- a portion refers to the first whole drive
+	- 1 portion refers to the first partition on drive
+
+7. /dev/disk/by-IDENTIFIERS --> In addition, Linux uses different persistent naming schemes to identify devices. The persistent naming schemes were created to make identifying a device more predictable. Some schemes:
+/dev/disk/by-id - Based on the HW serial number
+/dev/disk/by-path - Based on the shortest physical path to the device. Useful in configuration using DM-Multipath, which is a feature of the kernel that supports multiple I/O paths of devices.
+/dev/disk/by-uuid - This refers to an identifier based on universally unique identifier that was assigned to the device when a file system was created on it.
+
+----------------------------------------------
+
+Topic B - Manage Logical Volumes
+
+1. Device mapping
+Virtual storage devices - a process called device mapping. The device mapper creates the virtual device and passes data from that virtual device to one or more physical devices.
+
+Several Linux the device mapper to perform tasks like: volume encryption and integrity checking services
+
+DM-Multipath --> is a feature of the Linux kernel that provides redundancy and improve performance for block storage devices. It leverages the device mapper to support multiple I/O paths between the CPU and the storage devices. The multiplepath-tools package enables you to manage DM-Multipath, config /etc/multipath.conf
+
+The mdadm command --> tool used to manage software-based RAID arrays. Redundant array of independent disks. Data is stored across multiple physical storage devices, those devices are combined into a single virtual storage device. This is an alternative to using device mapper and DM-Multipath
+
+2. Logical Volume Manager --> For device mapper LVM maps whole physical devices and partitions into one or more virtual containers called volume groups. Within these volume groups are one or more logical volumes. The logical volumes become storage devices that the system, user, applications work with.
+
+3. LVM Advantages
+- Can dinamically create, delete and resize volumes without a reboot
+- Day-to-day management of volumes are easier once everything is set up.
+- You can map multiple logical volumes across multiple devices
+- A logical volume can exceed the size of any one physical device.
+- Can create virtual snapshots of each logical volume, can quickly and easily revert a volume to specific state.
+
+Can be complex
+
+4. The /dev/mapper/ directory --> contains all of the logical volumes on the system that are managed by LVM. Typically formatted:
+/dev/mapper/<volume group name>-<logical volume name>
+Can be also in the path /dev/
+
+5. LVM Tools --> Divides the volume management into 3 categories:
+- Physical volume tools
+- Volume group tools
+- Logical volume tools
+
+6. PV Tools
+pvscan		--> Scan for all devices that are being used as physical volumes
+pvcreate	--> Initialize a drive or partition
+pvdisplay	--> List attributes of a physical volume
+pvchange	--> Change attributes of a physical volume
+pvs		--> Display info about physical volume
+pvck		--> Check metadata of physical volume
+pvremove	--> Remove physical volumes
+
+7. VG Tools
+vgscan		--> Scan all physical devices for volume groups
+vgcreate	--> Create volume groups
+vgdisplay	--> List attributes of volume groups
+vgchange	--> Change attributes of volume groups
+vgs		--> Display info about volume groups
+vgck		--> Check the metadata of volume groups
+vgrename	--> Rename a volume group
+vgextend	--> Add physical volumes to volume groups
+vgmerge		--> Merge two volume groups
+vgsplit		--> Split a volume group into two
+vgremove	--> Remove volume groups
+
+8. VG Tools
+lvscan		--> Scan all physical devices for logical volumes
+lvcreate	--> Create logical volumes in a volume group
+lvdisplay	--> List attributes of logical volume
+lvchange	--> Change attributes of logical volumes
+lvs		--> Display info about logical volumes
+lvrename	--> Rename logical volumes
+lvreduce	--> Reduce the size of logical volumes
+lvextend	--> Extend the size of logical volumes
+lvresize	--> Resize logical volumes
+lvremove	--> Remove logical volumes
+
+----------------------------------------------
+
+Topic C - Mount File Systems
+
+1. Mount Points --> is an access point to information stored on a local or remote storage device. The mount point is typically an empty directoryon which a File system is loaded, or mounted, to make the file system accessible to users.
+
+If the directory contains content, the content becomes invisible to the users until the mounted file system is unmounted.
+
+fstab file to list the file system to be mounted and unmounted
+
+2. Mount command --> loads the file systm to a specified directory so that can be accesible to users and applications, the device to mount should be specified as well as the desire mount point.
+
+Syntax
+mount [options] {device name} {mount point}
+
+3. mount options
+auto 	--> Specify that the device has to be mounted automatically
+noauto	--> Specify that the device should not be mounted automatically
+nouser	--> Specify only root user can mount a device or a file system
+user	--> Specify all users can mount a device or file system
+exec	--> Allow binaries in a file system to be executed
+noexec	--> Prevent binaries in a file system from being executed
+ro	--> Mount a file system as read only
+rw	--> Mount a file system with read and write permissions
+sync	--> Specify that input and output operations in a file system should be done synchronously
+async	--> Specify that input and output operations in a file system should be done asynchronously
+
+Binaries --> Is a source code that is compiled into a executable program.
+
+4. umount command --> A mounted file system ca be disassociated from a directory by unloading or unmounting, with command umount. To unmount a file system, it mus not be in use
+
+Syntax
+umount [options] {mount point}
+
+Options
+-f	--> Force a file system to be unmounted despite any detected issues
+-l	--> Perform a lazy unmount, the file system is detached from the hierarchy, but references to that file system are not clean up until the file system is no longer being in used.
+-R	--> Recursively unmount the specified directory mount points
+-t {fs type}	--> Unmount only the file system types specified
+-O {mount options} --> Unmount only the file systems that are mounted with the specified options in the /etc/fstab file
+--fake	--> Test the unmounting procedure without actually performing it
+
+
+----------------------------------------------
+
+Topic D - Managed File systems
+
+1. The /proc/mounts File --> file lists the status of all mounted file systems similar to fstab, not just storage drives and partitions
+
+/etc/mtab file --> very similar to /proc/mounts, however /proc/mounts is tipically more accurate and include more up to date info
+
+2. The /proc/partitions File --> Contains info about each partition that is currently attached to the system. Columns
+major	- Represents the class of device so that it can be mapped to an appropiate driver
+minor	- Separates partitions into physical devices. This corresponds to the number at the end of partition's name
+#blocks	- How many physical blocks the partition takes up
+name	- The name of the partition
+
+3. the lsblk command --> Comman to display info about all block storage devices that are currently available on the system, output is a tree-like format, contains: major, minor numbers, siem device type and mount point
+
+Syntax
+lsblk [options] {device name}
+
+Options
+-a		--> List empty devices as well
+-e {device list}--> Exclude devices from output, this is a list of comma-separated major device numbers
+-f		--> Output additional file system info
+-l		--> Output results in list format
+-m		--> Output permisions info for devices
+
+4. The blkid command --> Offers similar functionality to lsblk, but simply prints each block device in a flat format and includes some additional info like device/partition UUID	
+Similar to lsblk -f
+
+Syntax
+blkid [options] {device name}
+
+5. ext Tools --> For ext FS there are tools to work specific this file system type
+- e2fsck
+- resize2fs
+- tune2fs
+- dumpe2fs
+
+6. The fsck command --> Is used to check integrity of a FS, correctness and validity of a File System. The File system errors are usually caused by power failures, hardware failures or improper shutdown.
+
+You should unmount the File system before scanning with fsck to prevent damage.
+
+Syntax
+fsck [options] {device/file system name}
+
+To repair a file system:
+fsck -r {device/file system name}
+
+7. The resize2fs command --> Is used to enlarge or shrink an ext2/3/4 file system on a device. the unmount of the file system must be done first, if a size is not specified it will resize to the same size of the partition.
+
+Syntax
+resize2fs [options] {device/file system name} [desired size]
+
+8. the tune2fs command --> Helps to configure some tunable parameters associated with an ext2/3/4 file system.
+- remove reserved blocks
+- alter reserved block count
+- specify the number of mounts between checks
+- specify the time interval between checks
+- Can also add tune2fs in journal to an existing ext2 or ext 3 filesystem. If the file system is mounted the journal will be visible in the root directory of the file system. If the file system is not mounted, the journal will be hidden
+
+Syntax
+tune2fs [options] {device/file system name}
+
+Options:
+
+
+
+
+

@@ -1,0 +1,550 @@
+On a Debian-based system, which locations indicate where package repositories are available?
+The /etc/apt/sources.list.d directory and the /etc/apt/sources.list file locations indicate where package repositories are available. The other answers are not valid locations.
+
+
+Which of the following is a typical location for a shared library to be stored?
+/usr/lib
+
+
+Local packages that end in .deb can be installed with the _____ command.
+Local packages that end in .deb can be installed with the dpkg command. rpm and yum install packages that end in .rpm, not .deb.
+
+
+You have downloaded an RPM package named abc.rpm from a vendor site. Which command should you run first?
+When downloading an RPM package, you should always verify the MD5 checksum and the GPG signature before attempting to install the RPM. This can be accomplished by running the rpm command with the -K option. The answers that include the -i, -U, and -F options are incorrect as these options all attempt to install (or update) the software package before verifying the MD5 checksum and GPG signature.
+
+
+Which command do you execute to see which libraries an executable uses?
+ldd
+
+
+
+A _____ is an operating system that shares a physical system with one or more other operating systems.
+virtual machine
+
+
+Which of the following are container software programs? 
+Docker
+cgroups
+
+
+A(n) _____ is a VM template that is saved using the Open Virtualization Format and that has been stored in TAR format.
+OVA
+
+
+Which of the following are good reasons to boot from an ISO?
+An ISO can also be used to install a new distribution on the system.
+The system may be a thin client with no hard drive.
+
+
+
+
+Which of the following lines in the /boot/grub/grub.conf file is incorrect?
+GRUB_TIMEOUT=5
+GRUB_DEFAULT=saved
+GRUB_TERMINAL_OUT="console"
+GRUB_CMDLINE_LINUX="crashkernel=auto rhgb quiet"
+
+GRUB_TERMINAL_OUT
+
+
+In a systemd unit file description, which section includes a setting that defines the executable that starts the service?
+Service
+
+
+Which option to the systemd-analyze command displays how long it takes for each service to start?
+The blame option to the systemd-analyze command displays how long it takes for each service to start. The other answers are not valid options.
+
+
+Which option to the systemctl command displays available targets?
+The list-unit-files --type=target option to the systemctl command displays available targets. The other answers are not valid options.
+
+
+Which option to the kill command forces a process to stop?
+-9
+
+
+Which of the following commands allow you to list running processes and filter the output by process name?
+pgrep
+ps | grep
+
+
+Which of the following commands allow you to stop a process?
+The kill command allows you to send a signal to a process, including a signal to stop a process. The top command provides a method to stop a process by sending a signal. The halt command stops the entire operating systems, not just a single process. There is no stop command.
+
+
+A process that is in a(n) _____ state is one that is performing certain system calls that prevent it from being interrupted (killed).
+A process that is in an uninterruptible sleep state is one that is performing certain system calls that prevent it from being interrupted (killed). A running process is one that currently has operations taking place on the CPU or has operations on the CPU queue. A paused process is not currently performing system calls. The term unstoppable sleep is not a valid term.
+
+
+
+Which command sends the contents of the item2 file into the item1 command as standard input?
+item1 < item2
+
+
+
+Which command displays from line 20 to the end of the file?
+The tail -n +20 file command displays from line 20 to the end of the file. The head command only displays the top part of the file and doesn't support the option of specifying lines using +. The tail -n 20 file displays the last 20 lines of the file, not from line 20 to the end of the file.
+
+
+
+You have a file in the current directory named abc.txt. What happens if you execute the command cp -i /etc/hosts ./abc.txt?
+You are prompted to replace the current abc.txt file with the contents of the /etc/hosts file.
+
+
+
+
+A(n) _____, as shown in the following example, is a redirection technique that allows you to send a large chunk of data to a command:
+cat <<EOF
+We choose to go to the moon. We choose to go to the moon in this
+decade and do the other things, not because they are easy, but because
+they are hard, because that goal will serve to organize and measure
+the best of our energies and skills, because that challenge is one
+that we are willing to accept, one we are unwilling to postpone, and
+one which we intend to win, and the others, too.
+EOF
+
+A here document is a redirection technique that allows you to send a large chunk of data to a command. A cat command by itself does not provide this feature. There is no such thing as a EOF file or a marker, at least in terms of this feature.
+
+
+
+Which nano command displays a help document?
+^G
+
+^G Get Help  ^O WriteOut  ^R Read File ^Y Prev Page ^K Cut Text  ^C Cur Pos
+^X Exit      ^J Justify   ^W Where Is  ^V Next Page ^U UnCut Text^T To Spell
+
+
+
+The _____ command takes data from STDIN to build and execute commands.
+xargs
+
+
+
+Which vim command copies data into the buffer?
+The O command opens a new line and enters insert mode. The y command is used to copy data into the buffer. The ZZ command saves the file and exits the vim editor. The :q! command quits without saving changes.
+
+
+
+You have been asked to set read permissions for the user owner and group owner as well as write and execute permissions for the user owner without changing any other permissions on the file. Which of the following commands will complete this task?
+chmod u+rwx,g+r data.txt
+
+
+
+Which of the following allow(s) the owner of a file to give permissions for specific users and groups?
+ACLs
+
+
+
+When _____ is set on directories, files in the directory can only be removed by the user owner of the file, the owner of the directory, or the root user.
+When set on executable files, suid allows a program to access files using the permissions of the user owner of the executable file. When set on executable files, sgid allows a program to access files using the permissions of the group owner of the executable file. When sgid is set on directories, all new files in the directory inherit the group ownership of the directory. When the sticky bit is set on directories, files in the directory can only be removed by the user owner of the file, the owner of the directory, or the root user. sdid is not a valid term.
+
+
+
+
+
+Based on the permissions of the following directory, which user(s) can cd into the directory?
+[student@localhost ~]$ ls -ld test
+drwxr-xr--. 1 bob team1 62 May 9 2018 test
+the file owner and members of the team 1 group
+
+
+
+
+
+Based on the permissions of the following file, which user(s) can modify the file contents?
+[student@localhost ~]$ ls -l chrony.keys
+-rw-r-----. 1 root chrony 62 May 9 2018 chrony.keys
+the file owner
+
+
+
+You can disable a security policy with the _____ command.
+You can disable a security policy with the setenforce command. Use the getenforce command to determine the current SELinux mode. The sestatus command provides overall status information about SELinux. To set an SELinux Boolean, use the setsebool command.
+
+
+
+To view the status of a profile, use the _____ command.
+aa-status
+
+
+
+When in _____mode, SELinux is not functional at all.
+disabled
+
+
+
+Which option to the gzip command compresses all the files in all subdirectories?
+-r
+
+
+
+A(n) _____ backup archives any files since the last full backup.
+A differential backup archives any files since the last full backup. An incremental backup includes all files that have changed since the last incremental or full backup. With a full backup, everything from the source is backed up. There is no such thing as a complete or test backup.
+
+
+
+
+Which option to the tar command creates an archive that is compressed with the bzip2 utility?
+-j
+
+
+
+You have been told that every new user in the eng group needs to have the files from the /etc/eng directory copied into his or her home directory when the account is created. Based on this, how would you create an account for sue with the primary group eng?
+The primary account is specified with the -g option, making the two answers that use -G incorrect. To copy files automatically from a directory, the -k option is used, making the two answers that use -s incorrect.
+
+
+
+To persistently enable disk quotas on a filesystem, you edit the _____ file.
+/etc/fstab
+
+
+
+Which files are not executed when a user opens a new BASH shell? 
+The /etc/profile and ~/.bash_profile files are executed only when a user logs into the system, not when a new BASH shell is opened. The /etc/bash.bashrc and ~/.bashrc files are executed whenever a BASH shell is opened, either at login or when a new shell is opened.
+
+
+
+Which PAM library is responsible for LDAP integration?
+pam_ldap.so
+
+
+
+
+
+In a PAM configuration file, what control value is described by the following?
+Returns successful: If the current PAM module returns successful,
+then no additional rules are checked. The stack immediately returns
+with a value of successful (except when a previous requisite rule is
+unsuccessful).
+Returns unsuccessful: If the current PAM module returns
+unsuccessful, the next rule is checked in the list. If this is the final
+rule, the stack returns with a value of successful (except when a
+previous requisite rule is unsuccessful).
+
+The description refers to the sufficient control value. The required, requisite, and optional control values have different behaviors.
+
+
+
+One of the techniques to filter access to services on a host is to use a library called TCP Wrappers. This library uses simple configuration files, the /etc/_____ and /etc/_____ files, to either allow or deny access from specific hosts or networks.
+One of the techniques to filter access to services on a host is to use a library called TCP Wrappers. This library uses simple configuration files, the /etc/hosts.allow and /etc/hosts.deny files, to either allow or deny access from specific hosts or networks. The other answers all refer to invalid files.
+
+
+
+To query systemd log entries, use the _____ command
+journalctl
+
+
+
+In the _____ file, you can expect to see messages from a variety of services and daemons, including crond and mail servers.
+/var/log/messages
+
+
+
+
+
+
+What is uucp,news.crit in the following output?
+[root@OCS ~]# grep -v "^$" /etc/rsyslog.conf | grep -v "^#"
+*.info;mail.none;authpriv.none;cron.none /var/log/messages
+authpriv.* /var/log/secure
+mail.* -/var/log/maillog
+cron.* /var/log/cron
+*.emerg *
+uucp,news.crit /var/log/spooler
+local7.* /var/log/boot.log
+
+Selector
+
+
+The _____ option to the rsyslogd command is used to create regular timestamps.
+-m
+
+
+
+_____ allow(s) a peripheral to access system memory directly rather than having the CPU intervene.
+Direct memory access (DMA) allows a peripheral to access system memory directly rather than having the CPU intervene. Interrupt requests (IRQs) signal the processor that an event has happened and that the CPU is requested to come check on the resource. General-purpose input/output (GPIO) is a programable pin on a chip. A host bus adapter (HBA) is a card or circuit board that connects to the motherboard, normally through one of the PCI slots.
+
+
+
+
+Which option to the lpstat command displays a detailed summary of the printer status?
+-t
+
+
+
+You need to get a complete report of all the details of all devices attached to your system. Which of the following is the best command for this scenario?
+The lsdev command displays information about all devices recognized by your system. The lscpu command displays information about only the CPU. The lsblk command displays only block device information. The dmesg command displays only information about events that happened during the boot process and does not include devices added after the system has been booted.
+
+
+
+
+
+You have a system that has two CPUs. Based on the following output, what percentage of the CPUs have been used during the past 5 minutes?
+[root@localhost ~]# uptime				    1min  5min  15min
+ 16:16:00 up 1 day,  1:05,  6 users,  load average: 0.60, 0.40, 0.25
+2 cpus
+40%/2=20%
+
+
+
+Which kernel parameter is used to change the scheduler to follow the FIFO principle?
+noop follows the FIFO (first-in, first-out) principle. CFQ (Completely Fair Queuing) has a separate queue for each process, and the queues are served in a continuous loop. Deadline is the standard scheduler; it creates two queues, a read queue and a write queue. It also puts a timestamp on each I/O request to ensure that requests are handled in a timely manner. Truncate is not a valid scheduler.
+
+
+
+
+
+Based on the following output, which modules could be removed from memory with the rmmod command?
+[root@OCS ~]# lsmod | head
+Module                Size  Used by
+tcp_diag               12591  0
+udp_diag               12801  0
+inet_diag              18222  2 tcp_diag,udp_diag
+binfmt_misc            18035  1
+
+tcp_diag               12591  0
+udp_diag               12801  0
+Aren't used
+
+
+
+Which file does the modprobe command use to determine module dependencies?
+The modprobe command uses the file modules.dep to determine module dependencies. The other answers are not valid kernel module files.
+
+
+
+
+The concept of _____ involves creating different network paths to a remote storage device.
+multipath
+
+
+
+Which of the following RAID levels writes different data to each physical storage device with the exception of one device, which is used to store parity data?
+RAID 5 writes different data to each physical storage device with the exception of one device, which is used to store parity data. RAID 0 provides no redundancy but rather increases available storage by merging multiple hard disks (or partitions) into a single device. The original RAID (now called RAID 1) mirrors data between two hard disks. There is no RAID 8.
+
+
+
+
+Disks on systems that use the MBR (master boot record) can have up to ____ primary partitions per disk.
+4
+
+
+
+
+Which tool can be used to manage both GPT and MBR partition tables?
+parted
+
+
+
+
+The _____ command is used to determine what processes are using a filesystem and preventing it from being unmounted.
+fuser
+
+
+
+The _____ command is used to find and fix filesystem errors.
+fsck
+
+
+
+Which commands can be used to properly reduce the size of a logical volume?
+resize2fs
+lvreduce
+
+
+
+The _____ directory is the new location where network configuration files are stored on Ubuntu and some other Debian-based distributions.
+The /etc/netplan directory is the new location where network configuration files are stored on Ubuntu and some other Debian-based distributions. The format of these files is YAML (YAML Ain't Markup Language), a file format that is similar to JSON. The other answers are not valid locations for network configuration files.
+
+
+
+The _____ command is used for DHCP client operations.
+The pump command is used for DHCP client operations. The ethtool command displays or modifies other useful network device settings, such as the supported link modes and auto-negotiation settings. The netstat command provides useful network statistics but not network devices settings. The ss command is used to display socket information.
+
+
+
+On a Red Hat machine, the _____ directory contains the scripts used to configure and bring up and down the interfaces on the machine.
+/etc/sysconfig/network-scripts
+
+
+
+
+
+Fill in the blank to add a default gateway:
+_____ add default gw 10.0.0.1
+route
+
+
+
+Which of the following tools can be used to see the gateways that a network packet passes through?
+traceroute
+tracepath
+
+
+
+Which of the following terms describes the actual amount of data that passes through media?
+throughput
+
+
+
+
+Which tool do you use to display network statistics in order to determine if there is an issue with transmitting or receiving data?
+netstat
+
+
+
+
+When configuring a firewall, you create types of rules, referred to as a _____, that are placed on a filtering point.
+table
+
+
+
+
+Which command saves iptables commands to a file?
+iptables-save
+
+
+
+
+Which option can be used to display firewall rules for the iptables command?
+-L
+
+
+
+The purpose of _____ is to ensure that software, services, and systems are maintained in a consistent, predictable state.
+automated configuration management
+
+
+
+A(n) _____ for orchestration is the collection of steps that need to take place to complete an action.
+procedure
+
+
+
+
+What locations contain system crontab entries?
+/etc/cron.d
+/etc/crontab
+
+
+
+What happens by default to a program that is executing when you log off the system?
+When you log off a system, all programs that you started while you were logged in are sent a SIGHUP signal. Programs do not continue to run in the background by default, and they are not sent any other signals.
+
+
+
+What directories should you expect to see in the default $PATH variable of a cron job?
+/bin
+/usr/bin 
+
+
+
+
+
+
+In the following crontab entry, what does the value 5 represent?
+crontab -l
+30 5 * 12 1 find / -name *.core > /tmp/foundit
+the hour field
+
+
+
+
+
+Which is the correct command to use to set the time zone file in the following example:
+_____ -sf /usr/share/zoneinfo/America/Winnipeg /etc/localtime
+ln
+
+
+
+The _____ command can be used when running a command to gather system utilization for a specific process.
+
+
+
+Which locale variable would you use to force all locale settings to a value even if some of the other variables are set?
+LC_ALL
+
+
+
+Which of the following are string operations for the test statement?
+=
+-z 
+The operations -z and = are both string operations for the test statement. The operations -eq and -ne are both integer operations for the test statement.
+
+
+
+You can display the contents of a specific variable by using the _____ command.
+echo
+
+
+
+
+If the $name variable is not set, what is the output for the following command? 
+echo "Hello, $name"
+Hello,
+
+
+
+With the _____ method, a script isn't executed as a separate process but rather as if the commands were being run in the current shell.
+With the source method, a script isn't executed as a separate process but rather as if the commands were run within the current shell. The other answers are invalid methods for running a script.
+
+
+
+To create a new git branch named test, execute the command git _____ test.
+git branch test
+
+
+
+Which git command can be used to set your git username?
+git config
+
+
+
+The git _____ command sends new content from the local repository to the remote repository.
+push
+
+
+
+(n) _____ server shares files across a network by using the same protocol as an SSH server.
+SFTP
+
+
+
+_____ is a service that allows for secure communication between hosts.
+SSH
+
+
+
+Which of the following is considered a best practice in securing UEFI/BIOS?
+Enable a password on the UEFI/BIOS.
+
+
+
+____ is a system that provides information about publicly known vulnerabilities.
+CVE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
